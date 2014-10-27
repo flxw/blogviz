@@ -1,6 +1,6 @@
 {
   "name": "Popupheader",
-  "description": "Load content von BlogInt",
+  "description": "Display a content animation for blogs inside BlogIntelligence",
   "version": "0.1",
   "permissions": [ "tabs", "<all_urls>" ],
   "browser_action": {
