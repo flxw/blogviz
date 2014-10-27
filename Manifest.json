@@ -1,0 +1,23 @@
+{
+    "name": "Popupheader",
+    "description": "Load content von BlogInt",
+    "version": "0.1",
+    "permissions": [
+    "tabs","<all_urls>"
+    ],
+    "browser_action": {
+        "default_icon": "icon.png"
+    },
+
+    "content_scripts": [
+        {
+        "matches": [
+            "http://*/*",
+            "https://*/*"
+            ],
+        "js": ["content.js"],
+        "run_at": "document_end"         // pay attention to this line
+        }
+    ], 
+    "manifest_version":2
+}
