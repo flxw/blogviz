@@ -17,16 +17,31 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   }
 })
 
-// every time the tab changes, we need to check whether the plugin is alread
+// every time the tab changes, we need to check whether the plugin is already
 // active here. For any state, the icon needs to be change accordingly
 chrome.tabs.onActivated.addListener(function(changeInfo) {
 
   chrome.tabs.sendMessage(changeInfo.tabId, { type : "getTabState"}, function(response) {
-    var icon = 'img/icon_' + response.state + '.png'
-
-    currentTabState = response.state
     currentTabId = changeInfo.tabId
-
-    chrome.browserAction.setIcon({path : icon})
+    changeStateIconTo(response.state)
   })
 })
+
+// when the page inside a tab changes, the above signal is not sent,
+// but the main script still gets run. So the main script can trigger
+// an icon change by itself as well
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+  switch (request.type) {
+    case 'onTabStateChange':
+      changeStateIconTo(request.state)
+      return true
+  }
+})
+
+// local functions ------------------------------
+function changeStateIconTo(state) {
+  var icon = 'img/icon_' + state + '.png'
+
+  currentTabState = state
+  chrome.browserAction.setIcon({path : icon})
+}

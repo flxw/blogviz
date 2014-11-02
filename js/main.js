@@ -5,6 +5,7 @@ if (Math.random() > 0.5) {
   state = 'ready';
 }
 
+chrome.runtime.sendMessage({type : "onTabStateChange", state : state})
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   switch (request.type) {
