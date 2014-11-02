@@ -1,9 +1,5 @@
 // state sollte auf ready gesetzt werden wenn der shit geht
-var state = 'inactive'
-
-if (Math.random() > 0.5) {
-  state = 'ready';
-}
+var state = 'ready'
 
 chrome.runtime.sendMessage({type : "onTabStateChange", state : state})
 
@@ -24,22 +20,23 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
 })
 
-// check if webpage is contained inside BlogIntelligence database
+
 function activateHeader() {
-  header = window.document.createElement('div');
-  header.style.position = 'fixed';
-  header.style.top = "0";
-  header.style.width = "100%";
-  header.style.backgroundColor = 'red';
-  header.style.zIndex = "9999";
-  header.innerHTML = "HELLO WORLD"; // your content
+  // could use $.load() here if we were using zeptojs/jquery
+  var topbar  = document.createElement('header')
+  var logoUrl = chrome.extension.getURL('img/blogintelligence_logo_white_text.png')
 
-  wrapper = window.document.createElement('div');
-  wrapper.style.position = 'relative';
-  wrapper.style.marginTop = '15px'; // set to same height as header
-  wrapper.innerHTML = document.body.innerHTML;
+  var barhtml = "<div id='bi-animationArea'></div>"
+  barhtml    += "<div id='bi-interactionArea'>"
+  barhtml      += "<div id='bi-buttonArea'><ul class='button-group'>"
+  barhtml        += "<li><a href='#' class='button selected'>Animation 1</a></li>"
+  barhtml        += "<li><a href='#' class='button'>Animation 2</a></li>"
+  barhtml      += "</ul></div>"
+  barhtml      += "<div id='bi-logoArea'><img src=" + logoUrl + "></div>"
+  barhtml    += "</div>"
 
-  document.body.innerHTML = "";
-  document.body.appendChild(header);
-  document.body.appendChild(wrapper);
+  topbar.id  = 'bi-barHeader'
+  topbar.innerHTML = barhtml
+
+  document.body.insertBefore(topbar, document.body.firstChild);
 }
