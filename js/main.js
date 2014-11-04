@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 function activateHeader() {
   // could use $.load() here if we were using zeptojs/jquery
-  var topbar  = document.createElement('header')
+  var topbar  = document.createElement('div')
   var logoUrl = chrome.extension.getURL('img/blogintelligence_logo_white_text.png')
 
   var barhtml = "<div id='bi-animationArea'></div>"
