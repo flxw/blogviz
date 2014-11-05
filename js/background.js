@@ -26,20 +26,20 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       return true
 
     case 'checkIfContained':
-      request.open("GET", "http://192.168.42.38:8003/WebPlugin/checkUrl.xsjs?url=de.amulette-kelten.www:http/Amulette-der-Kelten-Produktseiten-01/Amulette-der-Kelten-Weise-Goettin-Anhaenger-WJ-P645s.html", true)
-      request.setRequestHeader('Authorization', 'Basic U01BMTQxNTpQb3Bjb3JuNTQ=')
-      request.onreadystatechange = function() {
-        if (request.readyState == 4) {
-          if (request.status == 200) {
+      var httpRequest = new XMLHttpRequest()
+      request.open("GET", "http://192.168.42.38:8003/WebPlugin/checkUrl.xsjs?url=" + httpRequest.url, true)
+      httpRequest.setRequestHeader('Authorization', 'Basic U01BMTQxNTpQb3Bjb3JuNTQ=')
+      httpRequest.onreadystatechange = function() {
+        if (httpRequest.readyState == 4) {
+          if (httpRequest.status == 200) {
             console.log('Website inside the database!')
-            state = 'ready'
-            chrome.runtime.sendMessage({type : "onTabStateChange", state : state})
+            chrome.runtime.sendMessage({type : "setTabState", state : 'ready'})
           } else {
-            console.log('Website is not inside!')
+            chrome.runtime.sendMessage({type : "setTabState", state : 'inactive'})
           }
         }
       }
-      request.send();
+      httpRequest.send();
       return true;
   }
 })
