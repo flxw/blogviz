@@ -2,7 +2,6 @@
 var tabStates = {}
 var currentTabId = null
 var dbLocation = "http://192.168.42.38:8003/WebPlugin/checkUrl.xsjs"
-//var origin     = reverseDomainName(document.location.origin.replace('http://', '')) + ":http" + document.location.pathname
 
 // ---- global functions ------------------------
 function changeStateIconTo(state) {
@@ -10,10 +9,6 @@ function changeStateIconTo(state) {
 
   currentTabState = state
   chrome.browserAction.setIcon({path : icon})
-}
-
-function reverseDomainName(s) {
-  return s.split(".").reverse().join(".")
 }
 
 function acquireTabStateFor(tabId, url) {
@@ -25,10 +20,13 @@ function acquireTabStateFor(tabId, url) {
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == 4) {
       if (httpRequest.status == 200) {
-        console.log('Website inside the database: ' + url)
         tabStates[tabId].state = 'active'
       } else {
         tabStates[tabId].state = 'inactive'
+      }
+
+      if (currentTabId === tabId) {
+        changeStateIconTo(tabStates[tabId])
       }
     }
   }
@@ -61,9 +59,11 @@ chrome.tabs.onActivated.addListener(function(changeInfo) {
 // when the page inside a tab changes, the content scripts
 // are re-run as well and thus the state information may need to be updated here
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  switch (request.type) {
-    case 'setTabUrl':
-      acquireTabStateFor(sender.tab.id, request.url)
-      return true
+  if (sender.tab) {
+    switch (request.type) {
+      case 'setTabUrl':
+        acquireTabStateFor(sender.tab.id, request.url)
+        return true
+    }
   }
 })
