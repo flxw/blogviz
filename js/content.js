@@ -1,1 +1,1 @@
-chrome.runtime.sendMessage({type: 'setTabUrl', url: document.location.origin})
+chrome.runtime.sendMessage({type: 'setTabUrl', url: document.location.href})

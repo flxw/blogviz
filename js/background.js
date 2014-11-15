@@ -1,7 +1,7 @@
 // ---- global vars -----------------------------
 var tabStates = {}
 var currentTabId = null
-var dbLocation = "http://192.168.42.38:8003/WebPlugin/checkUrl.xsjs"
+var dbLocation = "http://192.168.42.38:8003/WebPlugin/checkHost.xsjs"
 
 // ---- global functions ------------------------
 function changeStateIconTo(state) {
@@ -26,7 +26,7 @@ function acquireTabStateFor(tabId, url) {
       }
 
       if (currentTabId === tabId) {
-        changeStateIconTo(tabStates[tabId])
+        changeStateIconTo(tabStates[tabId].state)
       }
     }
   }
@@ -59,11 +59,21 @@ chrome.tabs.onActivated.addListener(function(changeInfo) {
 // when the page inside a tab changes, the content scripts
 // are re-run as well and thus the state information may need to be updated here
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+
+	requestUrl = modifyUrl(request.url)
+	  console.log(requestUrl)
   if (sender.tab) {
     switch (request.type) {
       case 'setTabUrl':
-        acquireTabStateFor(sender.tab.id, request.url)
+        acquireTabStateFor(sender.tab.id, requestUrl)
         return true
     }
   }
 })
+
+function modifyUrl(url) {
+	// TODO make also Https
+  url = url.replace(/^http?:\/\//,'')
+  url = url.substring(0, url.length-1)
+  return url
+}
