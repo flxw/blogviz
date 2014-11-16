@@ -29,9 +29,11 @@ function acquireTabStateFor(tabId, url) {
         changeStateIconTo(tabStates[tabId].state)
       }
     }
-  }
+  } 
 
-  httpRequest.send()
+  httpRequest.send(null)
+  setTimeout(function () {
+  console.log(httpRequest.responseText)}, 3000)
 }
 
 // ---- logic, bitches --------------------------
@@ -45,7 +47,6 @@ chrome.tabs.onRemoved.addListener(function(removedTabId, removeInfo) {
 // inside the popup needs to be changed
 chrome.tabs.onActivated.addListener(function(changeInfo) {
   currentTabId = changeInfo.tabId
-
   if (currentTabId in tabStates) {
     changeStateIconTo(tabStates[currentTabId].state)
   } else {
@@ -59,9 +60,8 @@ chrome.tabs.onActivated.addListener(function(changeInfo) {
 // when the page inside a tab changes, the content scripts
 // are re-run as well and thus the state information may need to be updated here
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-
-	requestUrl = modifyUrl(request.url)
-	  console.log(requestUrl)
+  
+  requestUrl = modifyUrl(request.url)
   if (sender.tab) {
     switch (request.type) {
       case 'setTabUrl':
@@ -72,8 +72,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 })
 
 function modifyUrl(url) {
-	// TODO make also Https
   url = url.replace(/^http?:\/\//,'')
+  url = url.replace(/^https?:\/\//,'')
   url = url.substring(0, url.length-1)
   return url
 }
