@@ -21,7 +21,9 @@ function modifyUrl(url) {
 
 function initializeTabDatastoreFor(tId) {
   tabStates[tId] = {
-    state: 'inactive'
+    state: 'inactive',
+    tags : [],
+    postCount : null
   }
 }
 
@@ -37,7 +39,11 @@ function acquireTabStateFor(tabId, url) {
       // sometimes the tab id changes and there is an error
       // finding out why could be useful
       if (httpRequest.status == 200) {
+        var data = JSON.parse(httpRequest.responseText);
+
         tabStates[tabId].state = 'active'
+        tabStates[tabId].tags = data.tags
+        tabStates[tabId].postCount = data.postCount
       } else {
         tabStates[tabId].state = 'inactive'
       }
@@ -81,9 +87,16 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (sender.tab) {
     requestUrl = modifyUrl(request.url)
     
-    switch (request.type) {
+    switch(request.type) {
       case 'setTabUrl':
         acquireTabStateFor(sender.tab.id, requestUrl)
+        return true
+    }
+  } else {
+    // request comes from the popup
+    switch(request.type) {
+      case 'getCurrentTabInformation':
+        sendResponse(tabStates[currentTabId])
         return true
     }
   }
