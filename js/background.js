@@ -4,6 +4,7 @@ var currentTabId = null
 var dbLocation = "http://192.168.42.38:8003/WebPlugin/checkHost.xsjs"
 
 // ---- global functions ------------------------
+// helpers
 function changeStateIconTo(state) {
   var icon = 'img/icon_' + state + '.png'
 
@@ -11,6 +12,20 @@ function changeStateIconTo(state) {
   chrome.browserAction.setIcon({path : icon})
 }
 
+function modifyUrl(url) {
+  url = url.replace(/^http?:\/\//,'')
+  url = url.replace(/^https?:\/\//,'')
+  url = url.substring(0, url.length-1)
+  return url
+}
+
+function initializeTabDatastoreFor(tId) {
+  tabStates[tId] = {
+    state: 'inactive'
+  }
+}
+
+// important
 function acquireTabStateFor(tabId, url) {
   var httpRequest = new XMLHttpRequest()
 
@@ -19,6 +34,8 @@ function acquireTabStateFor(tabId, url) {
 
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == 4) {
+      // sometimes the tab id changes and there is an error
+      // finding out why could be useful
       if (httpRequest.status == 200) {
         tabStates[tabId].state = 'active'
       } else {
@@ -31,12 +48,14 @@ function acquireTabStateFor(tabId, url) {
     }
   } 
 
-  httpRequest.send(null)
-  setTimeout(function () {
-  console.log(httpRequest.responseText)}, 3000)
+  httpRequest.send()
 }
 
 // ---- logic, bitches --------------------------
+chrome.tabs.onCreated.addListener(function(createdTab) {
+  initializeTabDatastoreFor(createdTab.id)
+})
+
 chrome.tabs.onRemoved.addListener(function(removedTabId, removeInfo) {
   if (removedTabId in tabStates) {
     delete tabStates[removedTabId]
@@ -50,9 +69,8 @@ chrome.tabs.onActivated.addListener(function(changeInfo) {
   if (currentTabId in tabStates) {
     changeStateIconTo(tabStates[currentTabId].state)
   } else {
-    tabStates[currentTabId] = {
-      state : 'inactive'
-    }
+    initializeTabDatastoreFor(currentTabId)
+    changeStateIconTo('inactive')
   }
 })
 
@@ -60,9 +78,9 @@ chrome.tabs.onActivated.addListener(function(changeInfo) {
 // when the page inside a tab changes, the content scripts
 // are re-run as well and thus the state information may need to be updated here
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  
-  requestUrl = modifyUrl(request.url)
   if (sender.tab) {
+    requestUrl = modifyUrl(request.url)
+    
     switch (request.type) {
       case 'setTabUrl':
         acquireTabStateFor(sender.tab.id, requestUrl)
@@ -70,10 +88,3 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
   }
 })
-
-function modifyUrl(url) {
-  url = url.replace(/^http?:\/\//,'')
-  url = url.replace(/^https?:\/\//,'')
-  url = url.substring(0, url.length-1)
-  return url
-}
