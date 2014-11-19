@@ -1,7 +1,9 @@
 // ---- global vars -----------------------------
 var tabStates = {}
 var currentTabId = null
-var dbLocation = "http://192.168.42.38:8003/WebPlugin/checkHost.xsjs"
+var dbLocation = 'http://192.168.42.38:8003/WebPlugin'
+var checkHostEndpoint = '/checkHost.xsjs'
+var checkPostEndpoint = '/checkPost.xsjs'
 
 // ---- global functions ------------------------
 // helpers
@@ -21,47 +23,90 @@ function modifyUrl(url) {
 
 function initializeTabDatastoreFor(tId) {
   tabStates[tId] = {
+    type: null,
     state: 'inactive',
     tags : [],
     postCount : null
   }
 }
 
-// important
-function acquireTabStateFor(tabId, url) {
+function sendGetRequestTo(endpoint, callback) {
   var httpRequest = new XMLHttpRequest()
 
-  httpRequest.open("GET", dbLocation + "?url=" + url, true)
+  httpRequest.open("GET", dbLocation + endpoint, true)
   httpRequest.setRequestHeader('Authorization', 'Basic U01BMTQxNTpQb3Bjb3JuNTQ=')
 
   httpRequest.onreadystatechange = function() {
     if (httpRequest.readyState == 4) {
-      // sometimes the tab id changes and there is an error
-      // finding out why could be useful
-      if (httpRequest.status == 200) {
-        var data = JSON.parse(httpRequest.responseText);
+      var responseObject = null
 
-        tabStates[tabId].state = 'active'
-        tabStates[tabId].tags = data.tags
-        tabStates[tabId].postCount = data.postCount
-      } else {
-        tabStates[tabId].state = 'inactive'
+      if (httpRequest.responseText) {
+        responseObject = JSON.parse(httpRequest.responseText)
       }
 
-      if (currentTabId === tabId) {
-        changeStateIconTo(tabStates[tabId].state)
-      }
+      callback(httpRequest.status, responseObject)
     }
-  } 
+  }
 
   httpRequest.send()
 }
 
-// ---- logic, bitches --------------------------
-chrome.tabs.onCreated.addListener(function(createdTab) {
-  initializeTabDatastoreFor(createdTab.id)
-})
+function getPostDetailsFor(tabId, url) {
+  sendGetRequestTo(checkPostEndpoint, function(status, jsonResponse) {
+    if (status === 200) {
+      tabStates[tabId].state     = 'active'
+      tabStates[tabId].type      = 'post'
+      tabStates[tabId].tags      = jsonResponse.tags
+      tabStates[tabId].postCount = jsonResponse.postCount
+    } else {
+      tabStates[tabId].state = 'inactive'
+    }
 
+    if (currentTabId === tabId) {
+      changeStateIconTo(tabStates[tabId].state)
+    }
+  })
+}
+
+function getHostDetailsFor(tabId, url) {
+  sendGetRequestTo(checkHostEndpoint, function(status, jsonResponse) {
+    if (status === 200) {
+      tabStates[tabId].state     = 'active'
+      tabStates[tabId].type      = 'post'
+      tabStates[tabId].tags      = jsonResponse.tags
+      tabStates[tabId].postCount = jsonResponse.postCount
+    } else {
+      tabStates[tabId].state = 'inactive'
+    }
+
+    if (currentTabId === tabId) {
+      changeStateIconTo(tabStates[tabId].state)
+    }
+  })
+}
+
+function isBaseUrl(url) {
+  var url = url.replace(/^.*:\/\//,'')
+
+
+}
+
+// important
+function acquireTabStateFor(tabId, url) {
+  if (!(tabId in tabStates)) {
+    // sometimes the tab id changes and there is an error
+    // finding out why could be useful - this is a quick fix until now
+    initializeTabDatastoreFor(tabId)
+  }
+
+  if (isBaseUrl(url)) {
+    getHostDetailsFor(tabId, url)
+  } else {
+    getPostDetailsFor(tabId, url)
+  }
+}
+
+// ---- logic, bitches --------------------------
 chrome.tabs.onRemoved.addListener(function(removedTabId, removeInfo) {
   if (removedTabId in tabStates) {
     delete tabStates[removedTabId]
@@ -75,7 +120,7 @@ chrome.tabs.onActivated.addListener(function(changeInfo) {
   if (currentTabId in tabStates) {
     changeStateIconTo(tabStates[currentTabId].state)
   } else {
-    initializeTabDatastoreFor(currentTabId)
+    console.log(currentTabId + ' is not registered!!')
     changeStateIconTo('inactive')
   }
 })
@@ -86,7 +131,7 @@ chrome.tabs.onActivated.addListener(function(changeInfo) {
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (sender.tab) {
     requestUrl = modifyUrl(request.url)
-    
+
     switch(request.type) {
       case 'setTabUrl':
         acquireTabStateFor(sender.tab.id, requestUrl)
