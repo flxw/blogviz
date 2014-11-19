@@ -3,7 +3,7 @@ var tabStates = {}
 var currentTabId = null
 var dbLocation = 'http://192.168.42.38:8003/WebPlugin'
 var checkHostEndpoint = '/checkHost.xsjs'
-var checkPostEndpoint = '/checkPost.xsjs'
+var checkPostEndpoint = '/checkPostUrl.xsjs'
 
 // ---- global functions ------------------------
 // helpers
@@ -52,7 +52,7 @@ function sendGetRequestTo(endpoint, callback) {
 }
 
 function getPostDetailsFor(tabId, url) {
-  sendGetRequestTo(checkPostEndpoint, function(status, jsonResponse) {
+  sendGetRequestTo(checkPostEndpoint + '?url=' + url, function(status, jsonResponse) {
     if (status === 200) {
       tabStates[tabId].state     = 'active'
       tabStates[tabId].type      = 'post'
@@ -69,7 +69,7 @@ function getPostDetailsFor(tabId, url) {
 }
 
 function getHostDetailsFor(tabId, url) {
-  sendGetRequestTo(checkHostEndpoint, function(status, jsonResponse) {
+  sendGetRequestTo(checkHostEndpoint + '?url=' + url, function(status, jsonResponse) {
     if (status === 200) {
       tabStates[tabId].state     = 'active'
       tabStates[tabId].type      = 'post'
@@ -86,9 +86,9 @@ function getHostDetailsFor(tabId, url) {
 }
 
 function isBaseUrl(url) {
-  var url = url.replace(/^.*:\/\//,'')
+  url = url.replace(/^.*:\/\//,'')
 
-
+  return (url.indexOf('/') < 0)
 }
 
 // important
