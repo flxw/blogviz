@@ -14,13 +14,6 @@ function changeStateIconTo(state) {
   chrome.browserAction.setIcon({path : icon})
 }
 
-function modifyUrl(url) {
-  url = url.replace(/^http?:\/\//,'')
-  url = url.replace(/^https?:\/\//,'')
-  url = url.substring(0, url.length-1)
-  return url
-}
-
 function initializeTabDatastoreFor(tId) {
   tabStates[tId] = {
     type: null,
@@ -72,7 +65,7 @@ function getHostDetailsFor(tabId, url) {
   sendGetRequestTo(checkHostEndpoint + '?url=' + url, function(status, jsonResponse) {
     if (status === 200) {
       tabStates[tabId].state     = 'active'
-      tabStates[tabId].type      = 'post'
+      tabStates[tabId].type      = 'page'
       tabStates[tabId].tags      = jsonResponse.tags
       tabStates[tabId].postCount = jsonResponse.postCount
     } else {
@@ -88,7 +81,9 @@ function getHostDetailsFor(tabId, url) {
 function isBaseUrl(url) {
   url = url.replace(/^.*:\/\//,'')
 
-  return (url.indexOf('/') < 0)
+  lastSlashIndex = url.indexOf('/')
+
+  return lastSlashIndex < 0
 }
 
 // important
@@ -97,6 +92,10 @@ function acquireTabStateFor(tabId, url) {
     // sometimes the tab id changes and there is an error
     // finding out why could be useful - this is a quick fix until now
     initializeTabDatastoreFor(tabId)
+  }
+
+  if (url[url.length-1] === '/') {
+    url = url.substring(0, url.length-1)
   }
 
   if (isBaseUrl(url)) {
@@ -130,11 +129,9 @@ chrome.tabs.onActivated.addListener(function(changeInfo) {
 // are re-run as well and thus the state information may need to be updated here
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (sender.tab) {
-    requestUrl = modifyUrl(request.url)
-
     switch(request.type) {
       case 'setTabUrl':
-        acquireTabStateFor(sender.tab.id, requestUrl)
+        acquireTabStateFor(sender.tab.id, request.url)
         return true
     }
   } else {
