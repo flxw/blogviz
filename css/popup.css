@@ -1,12 +1,14 @@
 html, body {
   height: 500px;
   width: 400px;
+  background-color: #fff9f0;
 }
 
 header {
-  height: 75px;
-  background-color: #5a6065;
+  height: 50px;
+  background-color: rgba(149, 165, 166,1.0);
   width: 100%;
+/*  box-shadow: 0px 3px 2px -2px gray;*/
 }
 
 header > img {
@@ -16,16 +18,72 @@ header > img {
   display: block;
 }
 
-#selectionArea {
-  display: block;
-  height: 25px;
-  width: 60%;
-  margin: 0 auto;
+#dataArea-blog {
+  margin: 0 10%;
 }
 
-#selectionArea a {
+#dataArea-blog #postCountArea {
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+#dataArea-blog #postCountArea p {
+  margin: 0;
+  letter-spacing: 2px;
+  text-align: center;
+  font-family: 'Roboto';
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 30px;
+  color: #fcb03c;
+}
+
+#dataArea-blog #postCountArea #postCount {
+  font-size: 50px;
+  line-height: 60px;
+  font-weight: 100;
+}
+
+#dataArea-blog #categoryContainer p {
+  font-family: 'Roboto';
+}
+
+#dataArea-blog #categoryContainer p span {
+  padding: 2px 8px;
+  background-color: rgb(78,205,196);
   color: #fff;
-  border-radius: 6px;
-  border: 1px solid #fff;
-  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+
+@font-face {
+  font-family: 'Josefin Slab';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Josefin Slab'), local('JosefinSlab'), url(/fonts/josefin-slab.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Cond Light'), local('OpenSans-CondensedLight'), url(/fonts/OpenSans-CondLight.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 100;
+  src: local('Roboto Thin'), local('Roboto-Thin'), url(/fonts/Roboto100.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Roboto Light'), local('Roboto-Light'), url(/fonts/Roboto300.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
