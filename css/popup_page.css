@@ -1,10 +1,3 @@
-html, body {
-  height: 500px;
-  width: 400px;
-  background-color: #fff9f0;
-  font-family: 'Roboto';
-}
-
 body::-webkit-scrollbar-track {
   background-color: #eee;
 }
@@ -16,20 +9,6 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-thumb {
   background-color: #0ae;
-}
-
-header {
-  height: 50px;
-  background-color: rgba(149, 165, 166,1.0);
-  width: 100%;
-/*  box-shadow: 0px 3px 2px -2px gray;*/
-}
-
-header > img {
-  padding: 5px;
-  height: 40px;
-  margin:  0 auto;
-  display: block;
 }
 
 .data-area {
@@ -75,36 +54,4 @@ p.count {
   color: #fff;
   border-radius: 2px;
   display: inline-block;
-}
-
-@font-face {
-  font-family: 'Josefin Slab';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Josefin Slab'), local('JosefinSlab'), url(/fonts/josefin-slab.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-
-@font-face {
-  font-family: 'Open Sans Condensed';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Open Sans Cond Light'), local('OpenSans-CondensedLight'), url(/fonts/OpenSans-CondLight.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 100;
-  src: local('Roboto Thin'), local('Roboto-Thin'), url(/fonts/Roboto100.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
-
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Roboto Light'), local('Roboto-Light'), url(/fonts/Roboto300.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
