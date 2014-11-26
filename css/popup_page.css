@@ -2,6 +2,20 @@ html, body {
   height: 500px;
   width: 400px;
   background-color: #fff9f0;
+  font-family: 'Roboto';
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #eee;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #0ae;
 }
 
 header {
@@ -18,38 +32,31 @@ header > img {
   display: block;
 }
 
-#dataArea-blog {
+.data-area {
   margin: 0 10%;
 }
 
-#dataArea-blog #postCountArea {
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-#dataArea-blog #postCountArea p {
+.count-area p {
   margin: 0;
   letter-spacing: 2px;
   text-align: center;
-  font-family: 'Roboto';
   font-size: 25px;
   font-weight: 300;
   line-height: 30px;
   color: #fcb03c;
 }
 
-#dataArea-blog #postCountArea #postCount {
+p.count {
   font-size: 50px;
   line-height: 60px;
   font-weight: 100;
 }
 
-#dataArea-blog #categoryContainer p {
+#categoryContainer p {
   text-align: justify;
-  font-family: 'Roboto';
 }
 
-#dataArea-blog #categoryContainer p span {
+#categoryContainer p span {
   margin: 2px;
   padding: 2px 8px;
   background-color: rgb(78,205,196);

@@ -79,6 +79,7 @@ function getHostDetailsFor(tabId, url) {
       tabStates[tabId].type      = 'page'
       tabStates[tabId].tags      = jsonResponse.tags
       tabStates[tabId].postCount = jsonResponse.postCount
+      tabStates[tabId].relatedHosts = jsonResponse.relatedHosts
     } else {
       tabStates[tabId].state = 'inactive'
     }

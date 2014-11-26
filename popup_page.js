@@ -1,7 +1,7 @@
 // chrome re-renders the popup every time it gets opened
 chrome.runtime.sendMessage({type: 'getCurrentTabInformation'}, function(tabData) {
-  console.log(tabData)
   $('#postCount').text(tabData.postCount)
+  $('#similarPageCount').text(tabData.relatedHosts.length)
 
   var categoryContainer = $('#categoryContainer p')
 
