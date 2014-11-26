@@ -12,7 +12,8 @@ var checkPostEndpoint = '/checkPostUrl.xsjs'
 function changeStateIconTo(state) {
   switch (state) {
     case 'active':
-      chrome.browserAction.setPopup({ popup: 'popup.html'})
+      var popupType = tabStates[currentTabId].type
+      chrome.browserAction.setPopup({ popup: 'popup_' + popupType + '.html'})
       break;
 
     case 'inactive':
