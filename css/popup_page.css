@@ -36,7 +36,8 @@ header > img {
   margin: 0 10%;
 }
 
-.count-area p {
+.count-area p,
+.count-area a {
   margin: 0;
   letter-spacing: 2px;
   text-align: center;
@@ -44,6 +45,16 @@ header > img {
   font-weight: 300;
   line-height: 30px;
   color: #fcb03c;
+  display: block;
+  margin: 0 auto;
+}
+
+.count-area a {
+  transition-duration: 0.3s;
+}
+
+.count-area a:hover {
+  padding-left: 10px;
 }
 
 p.count {
