@@ -131,6 +131,7 @@ chrome.tabs.onActivated.addListener(function(changeInfo) {
     changeStateIconTo(tabStates[currentTabId].state)
   } else {
     console.log('Tab ID ' + currentTabId + ' is not inside the tabState database!')
+    initializeTabDatastoreFor(currentTabId)
     changeStateIconTo('inactive')
   }
 })
