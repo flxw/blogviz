@@ -3,11 +3,9 @@ chrome.runtime.sendMessage({type: 'getCurrentTabInformation'}, function(tabData)
   console.log(tabData)
   $('#postCount').text(tabData.postCount)
 
-  var categories = []
+  var categoryContainer = $('#categoryContainer p')
 
   for (tag in tabData.tags) {
-    categories.push($('<span>' + tabData.tags[tag] + '</span>'))
+    categoryContainer.append('<span>' + tabData.tags[tag] + '</span>')
   }
-
-  $('#categoryContainer p').append(categories)
 })

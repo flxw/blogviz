@@ -45,16 +45,18 @@ header > img {
 }
 
 #dataArea-blog #categoryContainer p {
+  text-align: justify;
   font-family: 'Roboto';
 }
 
 #dataArea-blog #categoryContainer p span {
+  margin: 2px;
   padding: 2px 8px;
   background-color: rgb(78,205,196);
   color: #fff;
   border-radius: 2px;
+  display: inline-block;
 }
-
 
 @font-face {
   font-family: 'Josefin Slab';
