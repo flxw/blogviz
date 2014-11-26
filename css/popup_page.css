@@ -49,11 +49,8 @@ header > img {
   margin: 0 auto;
 }
 
-.count-area a {
-  transition-duration: 0.3s;
-}
-
 .count-area a:hover {
+  transition-duration: 0.3s;
   padding-left: 10px;
 }
 
