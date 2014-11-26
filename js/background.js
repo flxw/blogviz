@@ -12,7 +12,8 @@ var checkPostEndpoint = '/checkPostUrl.xsjs'
 function changeStateIconTo(state) {
   switch (state) {
     case 'active':
-      chrome.browserAction.setPopup({ popup: 'popup.html'})
+      var popupType = tabStates[currentTabId].type
+      chrome.browserAction.setPopup({ popup: 'popup_' + popupType + '.html'})
       break;
 
     case 'inactive':
@@ -55,11 +56,13 @@ function sendGetRequestTo(endpoint, callback) {
 }
 
 function getPostDetailsFor(tabId, url) {
+		  console.log("The URL: :"+checkPostEndpoint + '?url=' + url)
   sendGetRequestTo(checkPostEndpoint + '?url=' + url, function(status, jsonResponse) {
     if (status === 200) {
       tabStates[tabId].state     = 'active'
       tabStates[tabId].type      = 'post'
       tabStates[tabId].tags      = jsonResponse.tags
+      tabStates[tabId].relatedPosts = jsonResponse.relatedPosts
       tabStates[tabId].postCount = jsonResponse.postCount
     } else {
       tabStates[tabId].state = 'inactive'
@@ -78,6 +81,7 @@ function getHostDetailsFor(tabId, url) {
       tabStates[tabId].type      = 'page'
       tabStates[tabId].tags      = jsonResponse.tags
       tabStates[tabId].postCount = jsonResponse.postCount
+      tabStates[tabId].relatedHosts = jsonResponse.relatedHosts
     } else {
       tabStates[tabId].state = 'inactive'
     }

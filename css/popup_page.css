@@ -1,0 +1,53 @@
+body::-webkit-scrollbar-track {
+  background-color: #eee;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+  background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #0ae;
+}
+
+.data-area {
+  margin: 0 10%;
+}
+
+.count-area p,
+.count-area a {
+  margin: 0;
+  letter-spacing: 2px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 300;
+  line-height: 30px;
+  color: #fcb03c;
+  display: block;
+  margin: 0 auto;
+}
+
+.count-area a:hover {
+  transition-duration: 0.3s;
+  padding-left: 10px;
+}
+
+p.count {
+  font-size: 50px;
+  line-height: 60px;
+  font-weight: 100;
+}
+
+#categoryContainer p {
+  text-align: justify;
+}
+
+#categoryContainer p span {
+  margin: 2px;
+  padding: 2px 8px;
+  background-color: rgb(78,205,196);
+  color: #fff;
+  border-radius: 2px;
+  display: inline-block;
+}
