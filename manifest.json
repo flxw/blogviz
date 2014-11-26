@@ -11,8 +11,7 @@
 
   "browser_action": {
     "default_icon"  : "img/icon_inactive.png",
-    "default_title" : "BlogIntelligence Insights",
-    "default_popup" : "popup.html"
+    "default_title" : "BlogIntelligence Insights"
   },
 
   "background" : {

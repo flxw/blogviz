@@ -1,3 +1,5 @@
+'use strict';
+
 // ---- global vars -----------------------------
 var tabStates = {}
 var currentTabId = null
@@ -8,9 +10,17 @@ var checkPostEndpoint = '/checkPostUrl.xsjs'
 // ---- global functions ------------------------
 // helpers
 function changeStateIconTo(state) {
-  var icon = 'img/icon_' + state + '.png'
+  switch (state) {
+    case 'active':
+      chrome.browserAction.setPopup({ popup: 'popup.html'})
+      break;
 
-  currentTabState = state
+    case 'inactive':
+      chrome.browserAction.setPopup({ popup: '' })
+      break;
+  }
+
+  var icon = 'img/icon_' + state + '.png'
   chrome.browserAction.setIcon({path : icon})
 }
 
@@ -26,7 +36,7 @@ function initializeTabDatastoreFor(tId) {
 function sendGetRequestTo(endpoint, callback) {
   var httpRequest = new XMLHttpRequest()
 
-  httpRequest.open("GET", dbLocation + endpoint, true)
+  httpRequest.open('GET', dbLocation + endpoint, true)
   httpRequest.setRequestHeader('Authorization', 'Basic U01BMTQxNTpQb3Bjb3JuNTQ=')
 
   httpRequest.onreadystatechange = function() {
@@ -80,8 +90,7 @@ function getHostDetailsFor(tabId, url) {
 
 function isBaseUrl(url) {
   url = url.replace(/^.*:\/\//,'')
-
-  lastSlashIndex = url.indexOf('/')
+  var lastSlashIndex = url.indexOf('/')
 
   return lastSlashIndex < 0
 }
@@ -119,7 +128,7 @@ chrome.tabs.onActivated.addListener(function(changeInfo) {
   if (currentTabId in tabStates) {
     changeStateIconTo(tabStates[currentTabId].state)
   } else {
-    console.log(currentTabId + ' is not registered!!')
+    console.log('Tab ID ' + currentTabId + ' is not inside the tabState database!')
     changeStateIconTo('inactive')
   }
 })
