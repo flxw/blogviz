@@ -18,17 +18,17 @@ var tabDataErsatz = {
                     "host": "www.theguardian.com"
                 },
                 {
-                    "title": "Chicago Says Goodbye to Comedian Dan Ronan (also discussed...2 of my other favorite comedians: Ryan Willis and Donald Trump)",
+                    "title": "Chicago Says Goodby Ronan nald Trump)",
                     "url": "http://www.jimmyfungus.com/2014/06/chicago-says-goodbye-to-comedian-dan.html",
                     "host": "www.jimmyfungus.com"
                 },
                 {
-                    "title": "'Godzilla' Sequel To Feature Classic Monsters",
+                    "title": "'Godzilla' Sequel To Feature nsters",
                     "url": "http://www.airlockalpha.com/node/9950/godzilla-sequel-to-feature-classic-monsters.html",
                     "host": "www.airlockalpha.com"
                 },
                 {
-                    "title": "Godzilla, friends to reunite [UPDATED: KONG TOO]",
+                    "title": "Godzilla, friends to reunite KONG TOO]",
                     "url": "http://www.toplessrobot.com/2014/07/godzilla_friends_to_reunite.php",
                     "host": "www.toplessrobot.com"
                 },
@@ -112,25 +112,38 @@ var tabDataErsatz = {
 chrome.runtime.sendMessage({type: 'getCurrentTabInformation'}, function(tabData) {
     var categoryContainer = $('#categoryContainer p')
     var relatedPostsContainer = $('#relatedPostContainer')
-   for (post in tabData.relatedPosts) {
-      var relatedPost = createRelatedPost(tabData.relatedPosts[post]);
+   for (post in tabDataErsatz.relatedPosts) {
+      var relatedPost = createRelatedPost(tabDataErsatz.relatedPosts[post]);
       relatedPostsContainer.append(relatedPost)
    }
 })
 
 function createRelatedPost (relatedPost) {
     var code = "<div>"
-    code += "<h1>"+relatedPost.category+"</h1>"
     for(post in relatedPost.posts) {
         var title = relatedPost.posts[post].title
         var url  = relatedPost.posts[post].url
         var icon = getFavIcon(relatedPost.posts[post].host)
-        code += "<img src="+icon+" width=\"16px\" height=\"16px\" alt=\"http://www.faz.net/favicon.ico\">"
-        code += "<a href="+url+">"+title+"</a></br>"
+        code += "<div id=\"relatedPost\">"
+        code += "<div id=\"icon\"><img src="+icon+" width=\"40px\" height=\"40px\" alt=\"http://www.faz.net/favicon.ico\"></div>"
+        code += "<div id=\"descriptionContainer\">"
+        code +=     "<div ><b>"+title+"</b></div>"
+        code +=     "<div><span>"+relatedPost.category+"</span></div>"
+        code +=     "<div>"+maxIt(url)+"</div>"
+        code += "</div>"
+        code += "</div>"
     } 
     code += "</div>"
     return code
 }
+
+function maxIt(text) {
+    if (text.length>40)
+        return text.substring(0,30) + "...";
+    else
+        return text
+}
+
 
 function getFavIcon(url) {
     return "http://" + url + "/favicon.ico"
