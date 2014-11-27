@@ -17,7 +17,9 @@ function changeStateIconTo(state) {
       break;
 
     case 'inactive':
-      chrome.browserAction.setPopup({ popup: '' })
+      // FIX IT only for testing 
+      // chrome.browserAction.setPopup({ popup: 'popup_post.html'})
+      chrome.browserAction.setPopup({ popup: ''})
       break;
   }
 
