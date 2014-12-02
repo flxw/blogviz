@@ -58,8 +58,18 @@
 #relatedPost {
     height: 50px;
     font-size: 11px;
+    margin-bottom:10px;
 }
 
 #descriptionContainer {
+    
+}
+
+#title {
+    font-weight: 600;
+    font-size: 12px;
+}
+
+#url {
     
 }

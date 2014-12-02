@@ -124,13 +124,14 @@ function createRelatedPost (relatedPost) {
         var title = relatedPost.posts[post].title
         var url  = relatedPost.posts[post].url
         var icon = getFavIcon(relatedPost.posts[post].host)
-        if(UrlExists(icon)) {
+        console.log(title + "   " + url)
+        if(iconExists(icon)) {
             code += "<div id=\"relatedPost\">"
             code += "<div id=\"icon\"><img src="+icon+" width=\"40px\" height=\"40px\" alt=\"http://www.faz.net/favicon.ico\"></div>"
             code += "<div id=\"descriptionContainer\">"
-            code +=     "<div ><b>"+title+"</b></div>"
+            code +=     "<div id=\"title\">"+title+"</div>"
             code +=     "<div><span>"+relatedPost.category+"</span></div>"
-            code +=     "<div>"+maxIt(url)+"</div>"
+            code +=     "<div id=\"url\"><a href="+url+">"+maxIt(url)+"</a></div>"
             code += "</div>"
             code += "</div>"
         }
@@ -151,8 +152,11 @@ function getFavIcon(url) {
     return "http://" + url + "/favicon.ico"
 }
 
+function iconExists(icon) {
+    return urlExists(icon)
+}
 
-function UrlExists(url)
+function urlExists(url)
 {
     var http = new XMLHttpRequest();
     http.open('HEAD', url, false);
