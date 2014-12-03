@@ -1,0 +1,16 @@
+<div id='dataArea-blog'>
+  <div id='relatedPostContainer'>
+    <div ng-repeat='relatedCategoryPosts in postData.relatedPosts'>
+      <div id='relatedPost' ng-repeat='relatedPost in relatedCategoryPosts.posts'>
+        <div id='icon'>
+          <img src='http://{{ relatedPost.host }}/favicon.ico' width'40px' height='40px'>
+        </div>
+        <div id='descriptionContainer'>
+          <div id='title'>{{ relatedPost.title }}</div>
+          <div><span>{{ relatedCategoryPosts.category }}</span></div>
+          <div id='url'><a href='{{ relatedPost.url }}'>{{relatedPost.url}}</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
