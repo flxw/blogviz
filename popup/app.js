@@ -12,7 +12,4 @@ app.config(['$routeProvider', function($routeProvider) {
       controller:  'PostController',
       templateUrl: '/popup/views/post.html'
     })
-    .otherwise({
-      redirectTo: '/page'
-    })
 }])

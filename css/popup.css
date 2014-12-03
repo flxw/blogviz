@@ -124,9 +124,10 @@ p.count {
 }
 
 .icon {
-    height: 40px;
     float: left;
-    padding: 5px;
+    padding-top: 3px;
+    padding-bottom: 10px;
+    padding-right: 5px;
 }
 
 .relatedPost {
@@ -142,10 +143,14 @@ p.count {
 .title {
     font-weight: 600;
     font-size: 12px;
+    height: 15px;
+    overflow: hidden;
+    text-transform: uppercase;
 }
 
 .url {
-    
+    height: 15px;
+    overflow: hidden;
 }
 
 /* ================== */
