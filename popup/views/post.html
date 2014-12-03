@@ -2,13 +2,13 @@
   <div class='relatedPostContainer'>
     <div ng-repeat='relatedCategoryPosts in postData.relatedPosts'>
       <div class='relatedPost' ng-repeat='relatedPost in relatedCategoryPosts.posts'>
-        <div id='icon'>
+        <div class='icon'>
           <img src='http://{{ relatedPost.host }}/favicon.ico' width'40px' height='40px'>
         </div>
-        <div id='descriptionContainer'>
-          <div id='title'>{{ relatedPost.title }}</div>
+        <div class='description-container'>
+          <div class='title'>{{ relatedPost.title }}</div>
           <div><span>{{ relatedCategoryPosts.category }}</span></div>
-          <div id='url'><a href='{{ relatedPost.url }}'>{{relatedPost.url}}</a></div>
+          <div class='url'><a href='{{ relatedPost.url }}'>{{relatedPost.url}}</a></div>
         </div>
       </div>
     </div>
