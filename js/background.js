@@ -13,7 +13,7 @@ function changeStateIconTo(state) {
   switch (state) {
     case 'active':
       var popupType = tabStates[currentTabId].type
-      chrome.browserAction.setPopup({ popup: 'popup_' + popupType + '.html'})
+      chrome.browserAction.setPopup({ popup: 'popup.html#/' + popupType})
       break;
 
     case 'inactive':

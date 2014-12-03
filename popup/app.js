@@ -3,12 +3,16 @@
 var app = angular.module('postPopupPage', ['ngRoute']);
 
 app.config(['$routeProvider', function($routeProvider) {
-$routeProvider
-  .when('/', {
-    controller:  'LandingController',
-    templateUrl: '/popup/views/landing.html'
-  })
-  .otherwise({
-    redirectTo: '/'
-  })
+  $routeProvider
+    .when('/page', {
+      controller:  'PageController',
+      templateUrl: '/popup/views/page.html'
+    })
+    .when('/post', {
+      controller:  'PostController',
+      templateUrl: '/popup/views/post.html'
+    })
+    .otherwise({
+      redirectTo: '/post'
+    })
 }])
