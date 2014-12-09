@@ -58,7 +58,6 @@ function sendGetRequestTo(endpoint, callback) {
 }
 
 function getPostDetailsFor(tabId, url) {
-		  console.log("The URL: :"+checkPostEndpoint + '?url=' + url)
   sendGetRequestTo(checkPostEndpoint + '?url=' + url, function(status, jsonResponse) {
     if (status === 200) {
       tabStates[tabId].state     = 'active'
@@ -96,9 +95,9 @@ function getHostDetailsFor(tabId, url) {
 
 function isBaseUrl(url) {
   url = url.replace(/^.*:\/\//,'')
-  var lastSlashIndex = url.indexOf('/')
+  var firstSlashIndex = url.indexOf('/')
 
-  return lastSlashIndex < 0
+  return url.indexOf('/', firstSlashIndex + 1) < 0
 }
 
 // important
@@ -109,11 +108,11 @@ function acquireTabStateFor(tabId, url) {
     initializeTabDatastoreFor(tabId)
   }
 
-  if (url[url.length-1] === '/') {
-    url = url.substring(0, url.length-1)
-  }
 
   if (isBaseUrl(url)) {
+    if (url[url.length-1] === '/') {
+      url = url.substring(0, url.length-1)
+    }
     getHostDetailsFor(tabId, url)
   } else {
     getPostDetailsFor(tabId, url)
