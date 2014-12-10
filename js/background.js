@@ -3,7 +3,7 @@
 // ---- global vars -----------------------------
 var tabStates = {}
 var currentTabId = null
-var dbLocation = 'http://192.168.42.38:8003/WebPlugin'
+var dbLocation = 'http://blog-intelligence.com/XSEngine/WebPlugin'
 var checkHostEndpoint = '/checkHost.xsjs'
 var checkPostEndpoint = '/checkPostUrl.xsjs'
 
@@ -83,6 +83,7 @@ function getHostDetailsFor(tabId, url) {
       tabStates[tabId].tags      = jsonResponse.tags
       tabStates[tabId].postCount = jsonResponse.postCount
       tabStates[tabId].relatedHosts = jsonResponse.relatedHosts
+      tabStates[tabId].sentiments = jsonResponse.sentiments
     } else {
       tabStates[tabId].state = 'inactive'
     }

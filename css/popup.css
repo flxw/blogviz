@@ -32,6 +32,10 @@ body::-webkit-scrollbar-thumb {
   background-color: #0ae;
 }
 
+svg rect {
+  display: none;
+}
+
 .data-area {
   margin: 0 10%;
 }
