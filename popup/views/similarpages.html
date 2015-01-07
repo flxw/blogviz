@@ -1,0 +1,12 @@
+<div class='data-area'>
+  <div class='count-area'>
+    <p id='postCount' class='count'>Go Back</p>
+  </div>
+
+  <div class='similar-area'>
+    <div ng-repeat='related in pageData.relatedHosts'>
+      <h2>{{ related.category }}</h2>
+      <a ng-repeat='blog in related.blogs' ng-href='http://{{blog}}'><span>{{ blog }}</span></a>
+    </div>
+  </div>
+</div>
