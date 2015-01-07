@@ -68,6 +68,7 @@ function getPostDetailsFor(tabId, url) {
       tabStates[tabId].sentiments = jsonResponse.sentiment // Better if name would change in backend
     } else {
       tabStates[tabId].state = 'inactive'
+      requirePostCrawler(url)
     }
 
     if (currentTabId === tabId) {
@@ -87,7 +88,6 @@ function getHostDetailsFor(tabId, url) {
       tabStates[tabId].sentiments = jsonResponse.sentiments
     } else {
       tabStates[tabId].state = 'inactive'
-      requirePostCrawler()
     }
 
     if (currentTabId === tabId) {
@@ -98,6 +98,7 @@ function getHostDetailsFor(tabId, url) {
 
 /* Requires the crawler to crawl the post page, but only if the host is in the database */
 function requirePostCrawler(url){
+
   var baseUrl = getBaseUrlFrom(url)
   sendGetRequestTo(checkHostEndpoint + '?url=' + baseUrl, function(status, jsonResponse) {
     if (status === 200) 
@@ -106,13 +107,15 @@ function requirePostCrawler(url){
 }
 
 function getBaseUrlFrom(url) {
-  pathArray = (url).split('/')
-  console.log(pathArray)
-  return pathArray[0]
+  var pathArray = (url).split('/')
+  var baseUrl = pathArray[0] + "//" + pathArray[2]
+  return baseUrl
 }
 
 function crawlPost(url) {
   // Logic
+  // TODO Implement the crawler
+  console.log("FAKE: The page " + url + " is getting crawled.")
 }
 
 
