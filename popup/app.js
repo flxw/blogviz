@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('postPopupPage', ['ngRoute', 'highcharts-ng']);
+var app = angular.module('postPopupPage', ['ngRoute', 'highcharts-ng', 'ngAnimate']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
