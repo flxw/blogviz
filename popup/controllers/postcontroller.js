@@ -5,8 +5,13 @@ angular.module('postPopupPage').controller('PostController', ['$scope', '$locati
     title: {
       text: ''
     },
+    options: {
+      chart: {
+        backgroundColor: null,
+        type: 'pie'
+      }
+    },
     series: [{
-      type: 'pie',  
       data: []
     }],
     loading: false
