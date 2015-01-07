@@ -1,5 +1,6 @@
 angular.module('postPopupPage').controller('PostController', ['$scope', '$location', function($scope, $location) {
-
+  $scope.postData = {}
+  
   $scope.chartConfig = {
     title: {
       text: ''
@@ -20,15 +21,6 @@ angular.module('postPopupPage').controller('PostController', ['$scope', '$locati
     for (var peter in tabData.sentiments) {
       chartData.push([peter, tabData.sentiments[peter].count])
     }
-    
-    chartData.push("Peter",1112)
-    chartData.push("Sabine",2)
-    chartData.push("Thomas",12)
-    chartData.push("Goerttler",2)
-    chartData.push("Felix",12)
-    chartData.push("Spaten",2)
-    chartData.push("Hallo",12)
-    chartData.push("Sibne",2)
     
     $scope.chartConfig.series[0].data = chartData
     
