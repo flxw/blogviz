@@ -57,7 +57,7 @@ svg rect {
   cursor: pointer;
 }
 
-.count-area a:hover {
+.count-area:hover {
   transition-duration: 0.3s;
   padding-left: 10px;
 }
@@ -73,6 +73,19 @@ p.count {
 }
 
 #categoryContainer p span {
+  margin: 2px;
+  padding: 2px 8px;
+  background-color: rgb(78,205,196);
+  color: #fff;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.similar-area h2 {
+  display: block;
+}
+
+.similar-area span {
   margin: 2px;
   padding: 2px 8px;
   background-color: rgb(78,205,196);
@@ -141,7 +154,7 @@ p.count {
 }
 
 .description-container {
-    
+
 }
 
 .title {

@@ -1,30 +1,36 @@
-angular.module('postPopupPage').controller('PageController', ['$scope', '$location', function($scope, $location) {
-  $scope.pageData = {}
+'use strict';
 
+angular.module('postPopupPage').controller('PageController', ['$scope', '$location', 'PageDataService', function($scope, $location, dataService) {
+  $scope.dataService = dataService
+  $scope.pageData = null
   $scope.chartConfig = {
     title: {
       text: ''
     },
     series: [{
-      type: 'pie',  
-      data: []
+      type:'pie',
+      name: 'Sentiments'
     }],
-    loading: false
+    loading: true
   }
 
+  $scope.showSimilarPages = function() {
+    $location.path('/page/similarPages')
+  }
 
-  chrome.runtime.sendMessage({type: 'getCurrentTabInformation'}, function(tabData) {
-    $scope.pageData = tabData
-
-    $scope.chartConfig.series = [{ type:'pie', name: 'Sentiments'}]
+  $scope.$watch('dataService.getPageData()', function(pageData) {
+    if (pageData === null) {
+      return
+    }
 
     var chartData = []
-    for (var peter in tabData.sentiments) {
-      chartData.push([peter, tabData.sentiments[peter].count])
+    for (var peter in pageData.sentiments) {
+      chartData.push([peter, pageData.sentiments[peter].count])
     }
-    
-    $scope.chartConfig.series[0].data = chartData
 
-    $scope.$apply()
+    console.log(pageData)
+    $scope.pageData = pageData
+    $scope.chartConfig.loading = false
+    $scope.chartConfig.series[0].data = chartData
   })
 }])

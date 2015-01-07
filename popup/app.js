@@ -8,6 +8,10 @@ app.config(['$routeProvider', function($routeProvider) {
       controller:  'PageController',
       templateUrl: '/popup/views/page.html'
     })
+    .when('/page/similarPages', {
+      controller:  'SimilarPageController',
+      templateUrl: '/popup/views/similarpages.html'
+    })
     .when('/post', {
       controller:  'PostController',
       templateUrl: '/popup/views/post.html'
