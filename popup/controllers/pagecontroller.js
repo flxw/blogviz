@@ -12,7 +12,6 @@ angular.module('postPopupPage').controller('PageController', ['$scope', '$locati
     loading: false
   }
 
-
   chrome.runtime.sendMessage({type: 'getCurrentTabInformation'}, function(tabData) {
     $scope.pageData = tabData
 

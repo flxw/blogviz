@@ -65,6 +65,7 @@ function getPostDetailsFor(tabId, url) {
       tabStates[tabId].tags      = jsonResponse.tags
       tabStates[tabId].relatedPosts = jsonResponse.relatedPosts
       tabStates[tabId].postCount = jsonResponse.postCount
+      tabStates[tabId].sentiments = jsonResponse.sentiment // Better if name would change in backend
     } else {
       tabStates[tabId].state = 'inactive'
     }
@@ -86,6 +87,7 @@ function getHostDetailsFor(tabId, url) {
       tabStates[tabId].sentiments = jsonResponse.sentiments
     } else {
       tabStates[tabId].state = 'inactive'
+      requirePostCrawler()
     }
 
     if (currentTabId === tabId) {
@@ -93,6 +95,26 @@ function getHostDetailsFor(tabId, url) {
     }
   })
 }
+
+/* Requires the crawler to crawl the post page, but only if the host is in the database */
+function requirePostCrawler(url){
+  var baseUrl = getBaseUrlFrom(url)
+  sendGetRequestTo(checkHostEndpoint + '?url=' + baseUrl, function(status, jsonResponse) {
+    if (status === 200) 
+      crawlPost(url)
+  })
+}
+
+function getBaseUrlFrom(url) {
+  pathArray = (url).split('/')
+  console.log(pathArray)
+  return pathArray[0]
+}
+
+function crawlPost(url) {
+  // Logic
+}
+
 
 function isBaseUrl(url) {
   url = url.replace(/^.*:\/\//,'')
