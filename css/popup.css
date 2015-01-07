@@ -1,5 +1,4 @@
 html, body {
-  height: 500px;
   width: 400px;
   background-color: #fff9f0;
   font-family: 'Roboto';
@@ -30,10 +29,6 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-thumb {
   background-color: #0ae;
-}
-
-svg rect {
-  display: none;
 }
 
 .data-area {
@@ -69,7 +64,7 @@ p.count {
 }
 
 #categoryContainer p {
-  text-align: justify;
+  text-align: center;
 }
 
 #categoryContainer p span {
@@ -94,6 +89,7 @@ p.count {
   display: inline-block;
 }
 
+
 /* ===== post information display ============ */
 .data-area #postCountArea {
   padding: 5px 10px;
@@ -116,20 +112,6 @@ p.count {
   line-height: 60px;
   font-weight: 100;
 }
-
-.data-area #categoryContainer p {
-  text-align: justify;
-}
-
-.data-area #categoryContainer p span {
-  margin: 2px;
-  padding: 2px 8px;
-  background-color: rgb(78,205,196);
-  color: #fff;
-  border-radius: 2px;
-  display: inline-block;
-}
-
 
 .data-area .relatedPostContainer span {
   margin: 2px;

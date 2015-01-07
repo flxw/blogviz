@@ -7,15 +7,34 @@ angular.module('postPopupPage').controller('PageController', ['$scope', '$locati
     title: {
       text: ''
     },
-    series: [{
-      type:'pie',
-      name: 'Sentiments'
-    }],
-    loading: true
+    series: [],
+    options: {
+      chart: {
+        backgroundColor: null,
+        type: 'scatter'
+      },
+      yAxis: {
+        min: 0
+      },
+      xAxis: {
+        lineWidth: 0,
+        minorGridLineWidth:0,
+        lineColor: 'transparent',
+        labels: {
+          enabled: false
+        },
+        minorTickLength: 0,
+        tickLength: 0
+      }
+    }
   }
 
-  $scope.showSimilarPages = function() {
+ $scope.showSimilarPages = function() {
     $location.path('/page/similarPages')
+  }
+
+  $scope.showLinkedPosts = function() {
+    $location.path('/page/linkedPosts')
   }
 
   $scope.$watch('dataService.getPageData()', function(pageData) {
@@ -23,14 +42,15 @@ angular.module('postPopupPage').controller('PageController', ['$scope', '$locati
       return
     }
 
-    var chartData = []
+    var i = 0
     for (var peter in pageData.sentiments) {
-      chartData.push([peter, pageData.sentiments[peter].count])
+      $scope.chartConfig.series.push({
+        name: peter,
+        data: [[i++, pageData.sentiments[peter].count]]
+      })
     }
 
-    console.log(pageData)
     $scope.pageData = pageData
     $scope.chartConfig.loading = false
-    $scope.chartConfig.series[0].data = chartData
   })
 }])

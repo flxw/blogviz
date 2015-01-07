@@ -1,17 +1,19 @@
-<div class='count-area' ng-display='pageData.postCount > 0'>
-  <p id='postCount' class='count'>{{ pageData.postCount }}</p>
-  <a class='detail-link'>Linked posts</a>
-</div>
+<div class='data-area'>
+  <div class='count-area' ng-display='pageData.postCount > 0'>
+    <p id='postCount' class='count'>{{ pageData.postCount }}</p>
+    <a class='detail-link' ng-click='showLinkedPosts()'>Linked posts</a>
+  </div>
 
-<div class='count-area' ng-show='pageData.relatedHosts.length > 0'>
-  <p id='similarPageCount' class='count'>{{ pageData.relatedHosts.length }}</p>
-  <a class='detail-link' ng-click='showSimilarPages()'>Similar Sites</a>
-</div>
+  <div class='count-area' ng-show='pageData.relatedHosts.length > 0'>
+    <p id='similarPageCount' class='count'>{{ pageData.relatedHosts.length }}</p>
+    <a class='detail-link' ng-click='showSimilarPages()'>Similar Sites</a>
+  </div>
 
-<div id='categoryContainer'>
-  <p>
-    <span ng-repeat='tag in pageData.tags'>{{ tag }}</span>
-  </p>
+  <div id='categoryContainer'>
+    <p>
+      <span ng-repeat='tag in pageData.tags'>{{ tag }}</span>
+    </p>
+  </div>
 </div>
 
 <highchart id='piechart' config='chartConfig' ng-display='"sentiments" in pageData.sentiments'></highchart>
