@@ -6,6 +6,7 @@ var currentTabId = null
 var dbLocation = 'http://blog-intelligence.com/XSEngine/WebPlugin'
 var checkHostEndpoint = '/checkHost.xsjs'
 var checkPostEndpoint = '/checkPostUrl.xsjs'
+var colorset = {"lastColor":-1, "colors":["#B6CB4D",'#CB774D','#CB4D8C', '#A14DCB']}
 
 // ---- global functions ------------------------
 // helpers
@@ -64,6 +65,15 @@ function getPostDetailsFor(tabId, url) {
       tabStates[tabId].type      = 'post'
       tabStates[tabId].tags      = jsonResponse.tags
       tabStates[tabId].relatedPosts = jsonResponse.relatedPosts
+      for(var relatedPost in tabStates[tabId].relatedPosts) {
+        console.log(tabStates[tabId].relatedPosts[relatedPost])
+        for(var post in tabStates[tabId].relatedPosts[relatedPost].posts) {
+          var actualPost = tabStates[tabId].relatedPosts[relatedPost].posts[post]
+          actualPost.firstLetter = actualPost.title.substr(0,2)
+          actualPost.color = getNextColor()
+        }
+      }
+      console.log(tabStates[tabId])
       tabStates[tabId].postCount = jsonResponse.postCount
       tabStates[tabId].sentiments = jsonResponse.sentiment // Better if name would change in backend
     } else {
@@ -75,6 +85,16 @@ function getPostDetailsFor(tabId, url) {
       changeStateIconTo(tabStates[tabId].state)
     }
   })
+}
+
+function getNextColor() {
+  // Get random color, but not the color, which has returned before
+  var nextColor;
+  do {
+    nextColor = Math.floor(Math.random() * (colorset.colors.length)) 
+  } while(nextColor === colorset.lastColor)
+  colorset.lastColor = nextColor
+  return colorset.colors[nextColor]
 }
 
 function getHostDetailsFor(tabId, url) {

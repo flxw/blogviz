@@ -33,6 +33,7 @@ body::-webkit-scrollbar-thumb {
 
 .data-area {
   margin: 0 10%;
+  margin-top: 20px;
 }
 
 .count-area p,
@@ -123,10 +124,15 @@ p.count {
 }
 
 .icon {
-    float: left;
-    padding-top: 3px;
-    padding-bottom: 10px;
-    padding-right: 5px;
+  float: left;
+  width: 30px;
+  height: 32px;
+  margin-top: 3px;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  font-size: 22;
+  font-weight: bolder;
+  padding-left: 2px;
 }
 
 .relatedPost {
