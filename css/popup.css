@@ -133,6 +133,7 @@ p.count {
   font-size: 22;
   font-weight: bolder;
   padding-left: 2px;
+  border-radius: 2px;
 }
 
 .relatedPost {

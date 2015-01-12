@@ -66,14 +66,12 @@ function getPostDetailsFor(tabId, url) {
       tabStates[tabId].tags      = jsonResponse.tags
       tabStates[tabId].relatedPosts = jsonResponse.relatedPosts
       for(var relatedPost in tabStates[tabId].relatedPosts) {
-        console.log(tabStates[tabId].relatedPosts[relatedPost])
         for(var post in tabStates[tabId].relatedPosts[relatedPost].posts) {
           var actualPost = tabStates[tabId].relatedPosts[relatedPost].posts[post]
           actualPost.firstLetter = actualPost.title.substr(0,2)
           actualPost.color = getNextColor()
         }
       }
-      console.log(tabStates[tabId])
       tabStates[tabId].postCount = jsonResponse.postCount
       tabStates[tabId].sentiments = jsonResponse.sentiment // Better if name would change in backend
     } else {

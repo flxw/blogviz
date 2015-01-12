@@ -19,6 +19,7 @@ angular.module('postPopupPage').controller('PostController', ['$scope', '$locati
 
   chrome.runtime.sendMessage({type: 'getCurrentTabInformation'}, function(tabData) {
     $scope.postData = tabData
+    $scope.count = 0
     
     $scope.chartConfig.series = [{ type:'pie', name: 'Sentiments'}]
 
@@ -37,4 +38,12 @@ angular.module('postPopupPage').controller('PostController', ['$scope', '$locati
     var win = window.open(url, '_blank')
     win.focus();
    }
+   
+   $scope.increaseIcon = function (count) {
+     console.log("Hi")
+   //  $element.getElementById("icon"count).height = "70px"
+   //  iconDiv.height = "64px"
+     
+   }
+ 
 }])
