@@ -1,14 +1,14 @@
 <div class='data-area'>
   <div class='relatedPostContainer'>
     <div ng-repeat='relatedCategoryPosts in postData.relatedPosts'>
-      <div class='relatedPost' ng-repeat='relatedPost in relatedCategoryPosts.posts'>
+      <div class='relatedPost' style='cursor:pointer' ng-repeat='relatedPost in relatedCategoryPosts.posts' ng-click='openPageInNewTab(relatedPost.url)' >
         <div class='icon'>
           <img src='http://{{ relatedPost.host }}/favicon.ico' width'32px' height='32px'>
         </div>
         <div class='description-container'>
           <div class='title'>{{ relatedPost.title }}</div>
           <div><span>{{ relatedCategoryPosts.category }}</span></div>
-          <div class='url'><a href='{{ relatedPost.url }}'>{{relatedPost.url}}</a></div>
+          <div class='url'><a  >{{relatedPost.url}}</a></div>
         </div>
       </div>
     </div>

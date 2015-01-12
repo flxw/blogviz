@@ -29,7 +29,12 @@ angular.module('postPopupPage').controller('PostController', ['$scope', '$locati
     
     $scope.chartConfig.series[0].data = chartData
     
-    
+  
     $scope.$apply()
   })
+  
+  $scope.openPageInNewTab = function(url) {
+    var win = window.open(url, '_blank');
+    win.focus();
+   }
 }])

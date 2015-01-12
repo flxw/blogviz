@@ -29,7 +29,7 @@ angular.module('postPopupPage').controller('PageController', ['$scope', '$locati
     }
   }
 
- $scope.showSimilarPages = function() {
+  $scope.showSimilarPages = function() {
     $location.path('/page/similarPages')
   }
 
