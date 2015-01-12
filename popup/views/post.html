@@ -1,7 +1,7 @@
 <div class='data-area'>
   <div class='relatedPostContainer'>
     <div ng-repeat='relatedCategoryPosts in postData.relatedPosts'>
-      <div class='relatedPost' style='cursor:pointer' ng-repeat='relatedPost in relatedCategoryPosts.posts' ng-click='openPageInNewTab(relatedPost.url)' >
+      <div class='relatedPost' style='cursor:pointer' title="Open page in new tab" ng-repeat='relatedPost in relatedCategoryPosts.posts' ng-mouseover='showHelp()' ng-mouseleave='closeHelp()' ng-click='openPageInNewTab(relatedPost.url)' >
         <div class='icon'>
           <img src='http://{{ relatedPost.host }}/favicon.ico' width'32px' height='32px'>
         </div>

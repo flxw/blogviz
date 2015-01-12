@@ -34,7 +34,7 @@ angular.module('postPopupPage').controller('PostController', ['$scope', '$locati
   })
   
   $scope.openPageInNewTab = function(url) {
-    var win = window.open(url, '_blank');
+    var win = window.open(url, '_blank')
     win.focus();
    }
 }])
