@@ -33,17 +33,5 @@ angular.module('postPopupPage').controller('PostController', ['$scope', '$locati
   
     $scope.$apply()
   })
-  
-  $scope.openPageInNewTab = function(url) {
-    var win = window.open(url, '_blank')
-    win.focus();
-   }
-   
-   $scope.increaseIcon = function (count) {
-     console.log("Hi")
-   //  $element.getElementById("icon"count).height = "70px"
-   //  iconDiv.height = "64px"
-     
-   }
  
 }])

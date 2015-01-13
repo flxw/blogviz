@@ -70,8 +70,12 @@ function getPostDetailsFor(tabId, url) {
           var actualPost = tabStates[tabId].relatedPosts[relatedPost].posts[post]
           actualPost.firstLetter = actualPost.title.substr(0,2)
           actualPost.color = getNextColor()
+          getAdditionalTags(actualPost.url, actualPost)
         }
       }
+      setTimeout(function(){
+        console.log(tabStates[tabId])
+      }, 5000);
       tabStates[tabId].postCount = jsonResponse.postCount
       tabStates[tabId].sentiments = jsonResponse.sentiment // Better if name would change in backend
     } else {
@@ -82,6 +86,13 @@ function getPostDetailsFor(tabId, url) {
     if (currentTabId === tabId) {
       changeStateIconTo(tabStates[tabId].state)
     }
+  })
+}
+
+function getAdditionalTags(url, post) {
+  sendGetRequestTo(checkPostEndpoint + '?url=' + url, function(status, jsonResponse) {
+    if (status === 200)
+      post.tags = jsonResponse.tags
   })
 }
 
