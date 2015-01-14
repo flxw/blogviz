@@ -6,6 +6,7 @@ var currentTabId = null
 var dbLocation = 'http://blog-intelligence.com/XSEngine/WebPlugin'
 var checkHostEndpoint = '/checkHost.xsjs'
 var checkPostEndpoint = '/checkPostUrl.xsjs'
+var colorset = {"lastColor":-1, "colors":["#B6CB4D",'#CB774D','#CB4D8C', '#A14DCB']}
 
 // ---- global functions ------------------------
 // helpers
@@ -71,6 +72,8 @@ function getPostDetailsFor(tabId, url) {
       } else {
         tabStates[tabId].sentiments = null
       }
+
+      addAdditionalInformation(tabStates[tabId].relatedPosts)
     } else {
       tabStates[tabId].state = 'inactive'
       requirePostCrawler(url)
@@ -80,6 +83,46 @@ function getPostDetailsFor(tabId, url) {
       changeStateIconTo(tabStates[tabId].state)
     }
   })
+}
+
+function addAdditionalInformation(relatedPosts) {
+  for(var relatedPost in relatedPosts) {
+    for(var post in relatedPosts[relatedPost].posts) {
+      var actualPost = relatedPosts[relatedPost].posts[post]
+      actualPost.firstLetter = getInitials(actualPost.title)
+      actualPost.color = getNextColor()
+      setAdditionalTags(actualPost.url, actualPost)
+    }
+  }
+}
+
+function getInitials (title) {
+  var initials = ""
+  var i = 0
+  while(initials.length < 2 && i < title.length) {
+    var nextLetter = title.substr(i,1)
+    if(nextLetter.match(/[a-zA-Z]/))
+      initials += nextLetter
+    i += 1
+  }
+  return initials
+}
+
+function setAdditionalTags(url, post) {
+  sendGetRequestTo(checkPostEndpoint + '?url=' + url, function(status, jsonResponse) {
+    if (status === 200)
+      post.tags = jsonResponse.tags
+  })
+}
+
+function getNextColor() {
+  // Get random color, but not the color, which has returned before
+  var nextColor;
+  do {
+    nextColor = Math.floor(Math.random() * (colorset.colors.length))
+  } while(nextColor === colorset.lastColor)
+  colorset.lastColor = nextColor
+  return colorset.colors[nextColor]
 }
 
 function getHostDetailsFor(tabId, url) {

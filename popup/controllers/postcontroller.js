@@ -34,7 +34,6 @@ angular.module('postPopupPage').controller('PostController', ['$scope', '$locati
       name: 'Score',
       data: []
     }
-
     for (var peter in tabData.sentiments) {
       sentimentSeries.data.push([peter, tabData.sentiments[peter].count])
     }
@@ -43,4 +42,10 @@ angular.module('postPopupPage').controller('PostController', ['$scope', '$locati
     $scope.postData = tabData
     $scope.$apply()
   })
+
+  $scope.openPageInNewTab = function(url) {
+    var win = window.open(url, '_blank');
+    win.focus();
+  }
+
 }])

@@ -33,6 +33,7 @@ body::-webkit-scrollbar-thumb {
 
 .data-area {
   margin: 0 10%;
+  margin-top: 20px;
 }
 
 .count-area p,
@@ -123,14 +124,20 @@ p.count {
 }
 
 .icon {
-    float: left;
-    padding-top: 3px;
-    padding-bottom: 10px;
-    padding-right: 5px;
+  float: left;
+  width: 30px;
+  height: 32px;
+  margin-top: 3px;
+  margin-bottom: 0px;
+  margin-left: 2px;
+  margin-right: 5px;
+  font-size: 22;
+  font-weight: bolder;
+  padding-left: 2px;
+  border-radius: 2px;
 }
 
 .relatedPost {
-    height: 50px;
     font-size: 11px;
     margin-bottom:10px;
 }
@@ -141,14 +148,14 @@ p.count {
 
 .title {
     font-weight: 600;
-    font-size: 12px;
-    height: 15px;
+    font-size: 13px;
+    height: 18px;
     overflow: hidden;
     text-transform: uppercase;
 }
 
 .url {
-    height: 15px;
+    height: 18px;
     overflow: hidden;
 }
 
