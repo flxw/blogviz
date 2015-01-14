@@ -33,10 +33,6 @@ angular.module('postPopupPage').controller('PageController', ['$scope', '$locati
     $location.path('/page/similarPages')
   }
 
-  $scope.showLinkedPosts = function() {
-    $location.path('/page/linkedPosts')
-  }
-
   $scope.$watch('dataService.getPageData()', function(pageData) {
     if (pageData === null) {
       return
