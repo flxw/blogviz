@@ -16,4 +16,4 @@
   </div>
 </div>
 
-<highchart id='piechart' config='chartConfig' ng-display='"sentiments" in pageData.sentiments'></highchart>
+<highchart id='piechart' config='chartConfig' ng-show='pageData.sentiments !== null'></highchart>
