@@ -11,7 +11,7 @@ angular.module('postPopupPage').controller('PageController', ['$scope', '$locati
     options: {
       chart: {
         backgroundColor: null,
-        type: 'scatter'
+        type: 'pie'
       },
       yAxis: {
         min: 0
@@ -42,14 +42,16 @@ angular.module('postPopupPage').controller('PageController', ['$scope', '$locati
       return
     }
 
-    var i = 0
-    for (var peter in pageData.sentiments) {
-      $scope.chartConfig.series.push({
-        name: peter,
-        data: [[i++, pageData.sentiments[peter].count]]
-      })
+    var sentimentSeries = {
+      name: 'Score',
+      data: []
     }
 
+    for (var peter in pageData.sentiments) {
+      sentimentSeries.data.push([peter, pageData.sentiments[peter].count])
+    }
+
+    $scope.chartConfig.series.push(sentimentSeries)
     $scope.pageData = pageData
     $scope.chartConfig.loading = false
   })

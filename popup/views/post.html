@@ -8,11 +8,11 @@
         <div class='description-container'>
           <div class='title'>{{ relatedPost.title }}</div>
           <div><span>{{ relatedCategoryPosts.category }}</span></div>
-          <div class='url'><a href='{{ relatedPost.url }}'>{{relatedPost.url}}</a></div>
+          <div class='url'><a ng-href='{{ relatedPost.url }}'>{{relatedPost.url}}</a></div>
         </div>
       </div>
     </div>
   </div>
-	<highchart id='piechart' config='chartConfig'></highchart>
-	
 </div>
+
+<highchart id='piechart' config='chartConfig' ng-show='postData.sentiments !== null'></highchart>

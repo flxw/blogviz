@@ -17,7 +17,7 @@ function changeStateIconTo(state) {
       break;
 
     case 'inactive':
-      // FIX IT only for testing 
+      // FIX IT only for testing
       // chrome.browserAction.setPopup({ popup: 'popup_post.html'})
       chrome.browserAction.setPopup({ popup: ''})
       break;
@@ -65,7 +65,12 @@ function getPostDetailsFor(tabId, url) {
       tabStates[tabId].tags      = jsonResponse.tags
       tabStates[tabId].relatedPosts = jsonResponse.relatedPosts
       tabStates[tabId].postCount = jsonResponse.postCount
-      tabStates[tabId].sentiments = jsonResponse.sentiment // Better if name would change in backend
+
+      if (Object.keys(jsonResponse.sentiment).length > 0) {
+        tabStates[tabId].sentiments = jsonResponse.sentiment
+      } else {
+        tabStates[tabId].sentiments = null
+      }
     } else {
       tabStates[tabId].state = 'inactive'
       requirePostCrawler(url)
@@ -85,7 +90,12 @@ function getHostDetailsFor(tabId, url) {
       tabStates[tabId].tags      = jsonResponse.tags
       tabStates[tabId].postCount = jsonResponse.postCount
       tabStates[tabId].relatedHosts = jsonResponse.relatedHosts
-      tabStates[tabId].sentiments = jsonResponse.sentiments
+
+      if (Object.keys(jsonResponse.sentiment).length > 0) {
+        tabStates[tabId].sentiments = jsonResponse.sentiment
+      } else {
+        tabStates[tabId].sentiments = null
+      }
     } else {
       tabStates[tabId].state = 'inactive'
     }
@@ -101,21 +111,21 @@ function requirePostCrawler(url){
 
   var baseUrl = getBaseUrlFrom(url)
   sendGetRequestTo(checkHostEndpoint + '?url=' + baseUrl, function(status, jsonResponse) {
-    if (status === 200) 
+    if (status === 200)
       crawlPost(url)
   })
 }
 
 function getBaseUrlFrom(url) {
   var pathArray = (url).split('/')
-  var baseUrl = pathArray[0] + "//" + pathArray[2]
+  var baseUrl = pathArray[0] + '//' + pathArray[2]
   return baseUrl
 }
 
 function crawlPost(url) {
   // Logic
   // TODO Implement the crawler
-  console.log("FAKE: The page " + url + " is getting crawled.")
+  console.log('FAKE: The page ' + url + ' is getting crawled.')
 }
 
 

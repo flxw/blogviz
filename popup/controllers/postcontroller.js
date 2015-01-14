@@ -1,30 +1,46 @@
 angular.module('postPopupPage').controller('PostController', ['$scope', '$location', function($scope, $location) {
   $scope.postData = {}
-  
+
   $scope.chartConfig = {
     title: {
       text: ''
     },
-    series: [{
-      type: 'pie',  
-      data: []
-    }],
-    loading: false
+    series: [],
+    options: {
+      chart: {
+        backgroundColor: null,
+        type: 'pie'
+      },
+      yAxis: {
+        min: 0
+      },
+      xAxis: {
+        lineWidth: 0,
+        minorGridLineWidth:0,
+        lineColor: 'transparent',
+        labels: {
+          enabled: false
+        },
+        minorTickLength: 0,
+        tickLength: 0
+      }
+    }
   }
 
   chrome.runtime.sendMessage({type: 'getCurrentTabInformation'}, function(tabData) {
-    $scope.postData = tabData
-    
-    $scope.chartConfig.series = [{ type:'pie', name: 'Sentiments'}]
+    $scope.chartConfig.series = []
 
-    var chartData = []
-    for (var peter in tabData.sentiments) {
-      chartData.push([peter, tabData.sentiments[peter].count])
+    var sentimentSeries = {
+      name: 'Score',
+      data: []
     }
-    
-    $scope.chartConfig.series[0].data = chartData
-    
-    
+
+    for (var peter in tabData.sentiments) {
+      sentimentSeries.data.push([peter, tabData.sentiments[peter].count])
+    }
+
+    $scope.chartConfig.series.push(sentimentSeries)
+    $scope.postData = tabData
     $scope.$apply()
   })
 }])
