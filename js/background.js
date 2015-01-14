@@ -18,8 +18,6 @@ function changeStateIconTo(state) {
       break;
 
     case 'inactive':
-      // FIX IT only for testing
-      // chrome.browserAction.setPopup({ popup: 'popup_post.html'})
       chrome.browserAction.setPopup({ popup: ''})
       break;
   }
@@ -67,8 +65,8 @@ function getPostDetailsFor(tabId, url) {
       tabStates[tabId].relatedPosts = jsonResponse.relatedPosts
       tabStates[tabId].postCount = jsonResponse.postCount
 
-      if (Object.keys(jsonResponse.sentiment).length > 0) {
-        tabStates[tabId].sentiments = jsonResponse.sentiment
+      if (Object.keys(jsonResponse.sentiments).length > 0) {
+        tabStates[tabId].sentiments = jsonResponse.sentiments
       } else {
         tabStates[tabId].sentiments = null
       }
@@ -134,8 +132,8 @@ function getHostDetailsFor(tabId, url) {
       tabStates[tabId].postCount = jsonResponse.postCount
       tabStates[tabId].relatedHosts = jsonResponse.relatedHosts
 
-      if (Object.keys(jsonResponse.sentiment).length > 0) {
-        tabStates[tabId].sentiments = jsonResponse.sentiment
+      if (Object.keys(jsonResponse.sentiments).length > 0) {
+        tabStates[tabId].sentiments = jsonResponse.sentiments
       } else {
         tabStates[tabId].sentiments = null
       }
