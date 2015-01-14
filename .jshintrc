@@ -2,5 +2,5 @@
   "undef" : true,
   "unused" : true,
   "asi" : true,
-  "predef" : ["chrome", "console"]
+  "predef" : ["chrome", "console", "angular"]
 }
