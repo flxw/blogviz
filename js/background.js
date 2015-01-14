@@ -80,6 +80,7 @@ function getPostDetailsFor(tabId, url) {
 }
 
 function addAdditionalInformation(relatedPosts) {
+  // Will be handeled in backend soon, hopefully!
   for(var relatedPost in relatedPosts) {
     for(var post in relatedPosts[relatedPost].posts) {
       var actualPost = relatedPosts[relatedPost].posts[post]
