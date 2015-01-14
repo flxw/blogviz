@@ -65,19 +65,9 @@ function getPostDetailsFor(tabId, url) {
       tabStates[tabId].type      = 'post'
       tabStates[tabId].tags      = jsonResponse.tags
       tabStates[tabId].relatedPosts = jsonResponse.relatedPosts
-      for(var relatedPost in tabStates[tabId].relatedPosts) {
-        for(var post in tabStates[tabId].relatedPosts[relatedPost].posts) {
-          var actualPost = tabStates[tabId].relatedPosts[relatedPost].posts[post]
-          actualPost.firstLetter = actualPost.title.substr(0,2)
-          actualPost.color = getNextColor()
-          getAdditionalTags(actualPost.url, actualPost)
-        }
-      }
-      setTimeout(function(){
-        console.log(tabStates[tabId])
-      }, 5000);
       tabStates[tabId].postCount = jsonResponse.postCount
       tabStates[tabId].sentiments = jsonResponse.sentiment // Better if name would change in backend
+      addAdditionalInformation(tabStates[tabId].relatedPosts)
     } else {
       tabStates[tabId].state = 'inactive'
       requirePostCrawler(url)
@@ -89,7 +79,30 @@ function getPostDetailsFor(tabId, url) {
   })
 }
 
-function getAdditionalTags(url, post) {
+function addAdditionalInformation(relatedPosts) {
+  for(var relatedPost in relatedPosts) {
+    for(var post in relatedPosts[relatedPost].posts) {
+      var actualPost = relatedPosts[relatedPost].posts[post]
+      actualPost.firstLetter = getInitials(actualPost.title)
+      actualPost.color = getNextColor()
+      setAdditionalTags(actualPost.url, actualPost)
+    }
+  }
+}
+
+function getInitials (title) {
+  var initials = ""
+  var i = 0
+  while(initials.length < 2 && i < title.length) {
+    var nextLetter = title.substr(i,1)
+    if(nextLetter.match(/[a-zA-Z]/))
+      initials += nextLetter
+    i += 1
+  }
+  return initials
+}
+
+function setAdditionalTags(url, post) {
   sendGetRequestTo(checkPostEndpoint + '?url=' + url, function(status, jsonResponse) {
     if (status === 200)
       post.tags = jsonResponse.tags
