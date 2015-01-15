@@ -1,19 +1,18 @@
+<highchart id='piechart' config='chartConfig' ng-show='postData.sentiments !== null'></highchart>
+<hr />
+
 <div class='data-area'>
-  <div class='relatedPostContainer'>
-    <div ng-repeat='relatedCategoryPosts in postData.relatedPosts'>
-      <h2>{{ relatedCategoryPosts.category }} </h2>
-      <div class='relatedPost' style='cursor:pointer' title="Open page in new tab" ng-repeat='relatedPost in relatedCategoryPosts.posts' ng-click='openPageInNewTab(relatedPost.url)' >
-        <div class='icon' style="background-color: {{ relatedPost.color }}">
-          {{ relatedPost.firstLetter }}
-        </div>
-        <div class='description-container'>
-          <div class='title'>{{ relatedPost.title }}</div>
-          <div class='url'><a>{{relatedPost.url}}</a></div>
-          <div ><span ng-repeat='tag in relatedPost.tags'>{{ tag }}</span></div>
-        </div>
+  <div ng-repeat='relatedCategoryPosts in postData.relatedPosts'>
+    <h2 class='related-post-category'>{{ relatedCategoryPosts.category }}</h2>
+    <div class='relatedPost' title="Open page in new tab" ng-repeat='relatedPost in relatedCategoryPosts.posts' ng-click='openPageInNewTab(relatedPost.url)' >
+      <div class='icon' style="background-color: {{ relatedPost.color }}">
+        {{ relatedPost.firstLetter }}
+      </div>
+      <div class='description-container'>
+        <div class='title'>{{ relatedPost.title }}</div>
+        <div class='url'><a>{{relatedPost.url}}</a></div>
+        <div ><span ng-repeat='tag in relatedPost.tags'>{{ tag }}</span></div>
       </div>
     </div>
   </div>
 </div>
-
-<highchart id='piechart' config='chartConfig' ng-show='postData.sentiments !== null'></highchart>

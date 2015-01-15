@@ -2,6 +2,7 @@ html, body {
   width: 400px;
   background-color: #ffffff;
   font-family: 'Roboto';
+  overflow-y: visible;
 }
 
 header {
@@ -31,12 +32,18 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #0ae;
+  background-color: #007a9e;
 }
 
 .data-area {
   margin: 0 30px;
   margin-top: 20px;
+}
+
+h1.clickable {
+  cursor: pointer;
+  font-weight: 300;
+  color: #b1063a;
 }
 
 .count-area {
@@ -46,7 +53,11 @@ body::-webkit-scrollbar-thumb {
   transition-duration: 0.3s;
 }
 
-.count-area:hover {
+.count-area.clickable {
+  cursor: pointer;
+}
+
+.count-area.clickable:hover {
   padding-left: 10px;
 }
 
@@ -73,65 +84,31 @@ p.count-description {
   vertical-align: top;
   line-height: 20px;
   margin-top: 10px;
+  margin-left: 10px;
 }
 
 #categoryContainer p {
   text-align: center;
 }
 
-#categoryContainer p span {
+span.tag {
   margin: 2px;
   padding: 2px 8px;
-  background-color: rgba(149, 165, 166,0.9);
-  color: #fff;
+  color: #007a9e;
   border-radius: 2px;
+  border: 1px solid #007a9e;
   display: inline-block;
+  transition: all linear 0.1s;
 }
 
 .similar-area h2 {
+  color: rgba(149, 165, 166,1.0);
   display: block;
 }
 
-.similar-area span {
-  margin: 2px;
-  padding: 2px 8px;
-  background-color: rgb(78,205,196);
+a span.tag:hover {
   color: #fff;
-  border-radius: 2px;
-  display: inline-block;
-}
-
-
-/* ===== post information display ============ */
-.data-area #postCountArea {
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-.data-area #postCountArea p {
-  margin: 0;
-  letter-spacing: 2px;
-  text-align: center;
-  font-family: 'Roboto';
-  font-size: 25px;
-  font-weight: 300;
-  line-height: 30px;
-  color: #fcb03c;
-}
-
-.data-area #postCountArea #postCount {
-  font-size: 50px;
-  line-height: 60px;
-  font-weight: 100;
-}
-
-.data-area .relatedPostContainer span {
-  margin: 2px;
-  padding: 2px 8px;
-  background-color: rgb(78,205,196);
-  color: #fff;
-  border-radius: 2px;
-  display: inline-block;
+  background-color: #007a9e
 }
 
 .icon {
@@ -149,25 +126,28 @@ p.count-description {
 }
 
 .relatedPost {
-    font-size: 11px;
-    margin-bottom:10px;
+  color: #5a6065;
+  font-size: 11px;
+  margin-bottom:10px;
+  cursor: pointer;
+  transition: all linear 0.1s;
 }
 
-.description-container {
-
+.relatedPost:hover {
+  color: #007a9e;
 }
 
 .title {
-    font-weight: 600;
-    font-size: 13px;
-    height: 18px;
-    overflow: hidden;
-    text-transform: uppercase;
+  font-weight: 600;
+  font-size: 13px;
+  height: 18px;
+  overflow: hidden;
+  text-transform: uppercase;
 }
 
 .url {
-    height: 18px;
-    overflow: hidden;
+  height: 18px;
+  overflow: hidden;
 }
 
 /* ================== */

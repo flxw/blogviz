@@ -1,10 +1,10 @@
 <div class='data-area'>
-  <div class='count-area' style='cursor:pointer' ng-show='pageData.postCount > 0' ng-click='showLinkedPosts()'>
+  <div class='count-area' ng-show='pageData.postCount > 0'>
     <p id='postCount' class='count'>{{ pageData.postCount }}</p>
     <p class='count-description'>Linked<br>posts</p>
   </div>
 
-  <div class='count-area' style='cursor:pointer' ng-show='pageData.relatedHosts.length > 0' ng-click='showSimilarPages()'>
+  <div class='count-area clickable' ng-show='pageData.relatedHosts.length > 0' ng-click='showSimilarPages()'>
     <p id='similarPageCount' class='count'>{{ pageData.relatedHosts.length }}</p>
     <p class='count-description'>Similar<br>Sites</p>
   </div>
@@ -13,7 +13,7 @@
 
   <div id='categoryContainer'>
     <p>
-      <span ng-repeat='tag in pageData.tags'>{{ tag }}</span>
+      <span class='tag' ng-repeat='tag in pageData.tags'>{{ tag }}</span>
     </p>
   </div>
 </div>
