@@ -1,14 +1,14 @@
 html, body {
   width: 400px;
-  background-color: #fff9f0;
+  background-color: #ffffff;
   font-family: 'Roboto';
+  overflow-y: visible;
 }
 
 header {
   height: 50px;
-  background-color: rgba(149, 165, 166,1.0);
   width: 100%;
-/*  box-shadow: 0px 3px 2px -2px gray;*/
+  border-bottom: 2px solid rgba(149, 165, 166,1.0);
 }
 
 header > img {
@@ -16,6 +16,10 @@ header > img {
   height: 40px;
   margin:  0 auto;
   display: block;
+}
+
+body {
+  overflow-y: scroll;
 }
 
 body::-webkit-scrollbar-track {
@@ -28,99 +32,83 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #0ae;
+  background-color: #007a9e;
 }
 
 .data-area {
-  margin: 0 10%;
+  margin: 0 30px;
   margin-top: 20px;
 }
 
-.count-area p,
-.count-area a {
-  margin: 0;
-  letter-spacing: 2px;
-  text-align: center;
-  font-size: 25px;
+h1.clickable {
+  cursor: pointer;
   font-weight: 300;
-  line-height: 30px;
-  color: #fcb03c;
-  display: block;
-  margin: 0 auto;
+  color: #b1063a;
 }
 
-.count-area a {
+.count-area {
+  clear: both;
+  overflow: hidden;
+  margin-left: 70px;
+  transition-duration: 0.3s;
+}
+
+.count-area.clickable {
   cursor: pointer;
 }
 
-.count-area:hover {
-  transition-duration: 0.3s;
+.count-area.clickable:hover {
   padding-left: 10px;
 }
 
+.count-area p {
+  margin: 0;
+  letter-spacing: 1.2;
+  display: block;
+  float: left;
+}
+
 p.count {
+  color: #b1063a;
   font-size: 50px;
   line-height: 60px;
   font-weight: 100;
+}
+
+p.count-description {
+  color: rgba(149, 165, 166,1.0);
+  margin: 0;
+  letter-spacing: 2px;
+  font-size: 20px;
+  font-weight: 300;
+  vertical-align: top;
+  line-height: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 #categoryContainer p {
   text-align: center;
 }
 
-#categoryContainer p span {
+span.tag {
   margin: 2px;
   padding: 2px 8px;
-  background-color: rgb(78,205,196);
-  color: #fff;
+  color: #007a9e;
   border-radius: 2px;
+  border: 1px solid #007a9e;
   display: inline-block;
+  transition: all linear 0.1s;
 }
 
 .similar-area h2 {
+  color: rgba(149, 165, 166,1.0);
   display: block;
 }
 
-.similar-area span {
-  margin: 2px;
-  padding: 2px 8px;
-  background-color: rgb(78,205,196);
+a span.tag:hover {
   color: #fff;
-  border-radius: 2px;
-  display: inline-block;
-}
-
-
-/* ===== post information display ============ */
-.data-area #postCountArea {
-  padding: 5px 10px;
-  border-radius: 5px;
-}
-
-.data-area #postCountArea p {
-  margin: 0;
-  letter-spacing: 2px;
-  text-align: center;
-  font-family: 'Roboto';
-  font-size: 25px;
-  font-weight: 300;
-  line-height: 30px;
-  color: #fcb03c;
-}
-
-.data-area #postCountArea #postCount {
-  font-size: 50px;
-  line-height: 60px;
-  font-weight: 100;
-}
-
-.data-area .relatedPostContainer span {
-  margin: 2px;
-  padding: 2px 8px;
-  background-color: rgb(78,205,196);
-  color: #fff;
-  border-radius: 2px;
-  display: inline-block;
+  background-color: #007a9e
 }
 
 .icon {
@@ -138,25 +126,28 @@ p.count {
 }
 
 .relatedPost {
-    font-size: 11px;
-    margin-bottom:10px;
+  color: #5a6065;
+  font-size: 11px;
+  margin-bottom:10px;
+  cursor: pointer;
+  transition: all linear 0.1s;
 }
 
-.description-container {
-
+.relatedPost:hover {
+  color: #007a9e;
 }
 
 .title {
-    font-weight: 600;
-    font-size: 13px;
-    height: 18px;
-    overflow: hidden;
-    text-transform: uppercase;
+  font-weight: 600;
+  font-size: 13px;
+  height: 18px;
+  overflow: hidden;
+  text-transform: uppercase;
 }
 
 .url {
-    height: 18px;
-    overflow: hidden;
+  height: 18px;
+  overflow: hidden;
 }
 
 /* ================== */
@@ -173,13 +164,17 @@ p.count {
 }
 
 .view-animate.ng-enter {
-  left:100%;
+  opacity: 0;
 }
 .view-animate.ng-enter.ng-enter-active {
-  left:0;
+  opacity: 1;
 }
 .view-animate.ng-leave.ng-leave-active {
-  display: none;
+  opacity: 0
+}
+
+.view-animate.ng-leave {
+  opacity: 1
 }
 
 /* ================== */

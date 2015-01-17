@@ -12,10 +12,6 @@ app.config(['$routeProvider', function($routeProvider) {
       controller:  'SimilarPageController',
       templateUrl: '/popup/views/similarpages.html'
     })
-    .when('/page/similarPosts', {
-      controller:  'SimilarPostController',
-      templateUrl: '/popup/views/linkedposts.html'
-    })
     .when('/post', {
       controller:  'PostController',
       templateUrl: '/popup/views/post.html'

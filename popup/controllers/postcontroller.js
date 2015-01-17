@@ -1,29 +1,29 @@
+'use strict';
+
 angular.module('postPopupPage').controller('PostController', ['$scope', '$location', function($scope, $location) {
   $scope.postData = {}
 
   $scope.chartConfig = {
-    title: {
-      text: ''
-    },
     series: [],
     options: {
+      title: 'Sentiments',
       chart: {
         backgroundColor: null,
-        type: 'pie'
+        type: 'pie',
+        margin: 0
       },
-      yAxis: {
-        min: 0
-      },
-      xAxis: {
-        lineWidth: 0,
-        minorGridLineWidth:0,
-        lineColor: 'transparent',
-        labels: {
-          enabled: false
-        },
-        minorTickLength: 0,
-        tickLength: 0
+      plotOptions: {
+        pie: {
+          slicedOffset: 0,
+          size: '80%',
+          dataLabels: {
+              enabled: false
+          }
+        }
       }
+    },
+    size: {
+      height: 150,
     }
   }
 

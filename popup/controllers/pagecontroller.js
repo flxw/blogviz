@@ -4,37 +4,39 @@ angular.module('postPopupPage').controller('PageController', ['$scope', '$locati
   $scope.dataService = dataService
   $scope.pageData = null
   $scope.chartConfig = {
-    title: {
-      text: ''
-    },
     series: [],
     options: {
+      title: '',
       chart: {
         backgroundColor: null,
-        type: 'pie'
+        type: 'pie',
+        margin: 0
       },
-      yAxis: {
-        min: 0
-      },
-      xAxis: {
-        lineWidth: 0,
-        minorGridLineWidth:0,
-        lineColor: 'transparent',
-        labels: {
-          enabled: false
-        },
-        minorTickLength: 0,
-        tickLength: 0
+      plotOptions: {
+        pie: {
+          slicedOffset: 0,
+          size: '80%',
+          dataLabels: {
+              enabled: false
+          }
+        }
       }
+    },
+    size: {
+      height: 150,
     }
+  }
+
+  var sentimentColors = {
+    'StrongNegativeSentiment': '#b1063a',
+    'WeakNegativeSentiment': '#dd6108',
+    'NeutralSentiment': '#5a6065',
+    'WeakPositiveSentiment': '#f6a800',
+    'StrongPositiveSentiment': '#007a9e'
   }
 
   $scope.showSimilarPages = function() {
     $location.path('/page/similarPages')
-  }
-
-  $scope.showLinkedPosts = function() {
-    $location.path('/page/linkedPosts')
   }
 
   $scope.$watch('dataService.getPageData()', function(pageData) {
@@ -43,12 +45,15 @@ angular.module('postPopupPage').controller('PageController', ['$scope', '$locati
     }
 
     var sentimentSeries = {
-      name: 'Score',
       data: []
     }
 
     for (var peter in pageData.sentiments) {
-      sentimentSeries.data.push([peter, pageData.sentiments[peter].count])
+      sentimentSeries.data.push({
+        name: peter,
+        y: pageData.sentiments[peter].count,
+        color: sentimentColors[peter]
+      })
     }
 
     $scope.chartConfig.series.push(sentimentSeries)
