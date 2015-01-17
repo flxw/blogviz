@@ -1,4 +1,9 @@
 <highchart id='piechart' config='chartConfig' ng-show='postData.sentiments !== null'></highchart>
+<div id='categoryContainer'>
+  <p>
+    <span class='tag' ng-repeat='tag in postData.tags'>{{ tag }}</span>
+  </p>
+</div>
 <hr />
 
 <div class='data-area'>
