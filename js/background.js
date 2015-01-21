@@ -6,7 +6,8 @@ var currentTabId = null
 var dbLocation = 'http://blog-intelligence.com/XSEngine/WebPlugin'
 var checkHostEndpoint = '/checkHost.xsjs'
 var checkPostEndpoint = '/checkPostUrl.xsjs'
-var colorset = {"lastColor":-1, "colors":["#B6CB4D",'#CB774D','#CB4D8C', '#A14DCB']}
+//var colorset = {"lastColor":-1, "colors":["#B6CB4D",'#CB774D','#CB4D8C', '#A14DCB']}
+var colorset = {"lastColor":-1, "colors":["#529900",'#996100','#99001F', '#940099']}
 
 // ---- global functions ------------------------
 // helpers
@@ -65,8 +66,10 @@ function getPostDetailsFor(tabId, url) {
       tabStates[tabId].relatedPosts = jsonResponse.relatedPosts
       tabStates[tabId].postCount = jsonResponse.postCount
 
-      if (Object.keys(jsonResponse.sentiments).length > 0) {
-        tabStates[tabId].sentiments = jsonResponse.sentiments
+      // READ!!!
+      // Don't delete this or copy paste anything there as long as the backend has not changed sentiment to sentimes
+      if (Object.keys(jsonResponse.sentiment).length > 0) {
+        tabStates[tabId].sentiments = jsonResponse.sentiment
       } else {
         tabStates[tabId].sentiments = null
       }
@@ -84,12 +87,12 @@ function getPostDetailsFor(tabId, url) {
 }
 
 function addAdditionalInformation(relatedPosts) {
+  // Will be handeled in backend soon, hopefully!
   for(var relatedPost in relatedPosts) {
     for(var post in relatedPosts[relatedPost].posts) {
       var actualPost = relatedPosts[relatedPost].posts[post]
       actualPost.firstLetter = getInitials(actualPost.title)
       actualPost.color = getNextColor()
-      setAdditionalTags(actualPost.url, actualPost)
     }
   }
 }
@@ -103,14 +106,11 @@ function getInitials (title) {
       initials += nextLetter
     i += 1
   }
+  if(initials.length === 0)
+    initials = "P"
+  if(initials.length === 1)
+    initials += "O"
   return initials
-}
-
-function setAdditionalTags(url, post) {
-  sendGetRequestTo(checkPostEndpoint + '?url=' + url, function(status, jsonResponse) {
-    if (status === 200)
-      post.tags = jsonResponse.tags
-  })
 }
 
 function getNextColor() {
