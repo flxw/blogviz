@@ -16,7 +16,7 @@
 
   "author" : ["felix.wolff2@student.hpi.de", "thomas.goerttler@student.hpi.de", "dominik.heydt@student.hpi.de"],
   "background" : {
-    "scripts" : [ "js/background.js" ],
+    "page" : "background.html",
     "persistent": true
   },
 
