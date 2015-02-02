@@ -26,16 +26,37 @@ angular.module('postPopupPage').controller('PostController', ['$scope', '$locati
       height: 150,
     }
   }
+  
+
+  var sentimentColors = {
+    'StrongNegativeSentiment': '#b1063a',
+    'WeakNegativeSentiment': '#dd6108',
+    'NeutralSentiment': '#5a6065',
+    'WeakPositiveSentiment': '#f6a800',
+    'StrongPositiveSentiment': '#007a9e'
+  }
 
   chrome.runtime.sendMessage({type: 'getCurrentTabInformation'}, function(tabData) {
     $scope.chartConfig.series = []
-
+/*
     var sentimentSeries = {
       name: 'Score',
-      data: []
+      data: [],
+      color: sentimentColors[peter]
     }
     for (var peter in tabData.sentiments) {
       sentimentSeries.data.push([peter, tabData.sentiments[peter].count])
+    } */
+    var sentimentSeries = {
+      data: []
+    }
+    
+    for (var peter in tabData.sentiments) {
+      sentimentSeries.data.push({
+        name: peter,
+        y: tabData.sentiments[peter].count,
+        color: sentimentColors[peter]
+      })
     }
 
     $scope.chartConfig.series.push(sentimentSeries)
