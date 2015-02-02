@@ -4,7 +4,7 @@
   <div class='similar-area'>
     <div ng-repeat='related in pageData.relatedHosts'>
       <h2>{{ related.category }}</h2>
-      <a ng-repeat='blog in related.blogs' ng-href='http://{{blog}}'><span class='tag'>{{ blog }}</span></a>
+      <a ng-repeat='blog in related.blogs' target='_blank' ng-href='http://{{blog}}'><span class='tag'>{{ blog }}</span></a>
     </div>
   </div>
 </div>
