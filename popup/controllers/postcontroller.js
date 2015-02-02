@@ -48,6 +48,7 @@ angular.module('postPopupPage').controller('PostController', ['$scope', '$locati
       sentimentSeries.data.push([peter, tabData.sentiments[peter].count])
     } */
     var sentimentSeries = {
+      name: 'Count',
       data: []
     }
     
