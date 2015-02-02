@@ -45,6 +45,7 @@ angular.module('postPopupPage').controller('PageController', ['$scope', '$locati
     }
 
     var sentimentSeries = {
+      name: 'Count',
       data: []
     }
 
