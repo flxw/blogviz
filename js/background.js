@@ -77,7 +77,6 @@ function getPostDetailsFor(tabId, url) {
       addAdditionalInformation(tabStates[tabId].relatedPosts)
     } else {
       tabStates[tabId].state = 'inactive'
-      requirePostCrawler(url)
     }
 
     if (currentTabId === tabId) {
@@ -147,15 +146,6 @@ function getHostDetailsFor(tabId, url) {
   })
 }
 
-/* Requires the crawler to crawl the post page, but only if the host is in the database */
-function requirePostCrawler(url){
-
-  var baseUrl = getBaseUrlFrom(url)
-  sendGetRequestTo(checkHostEndpoint + '?url=' + baseUrl, function(status, jsonResponse) {
-    if (status === 200)
-      crawlPost(url)
-  })
-}
 
 function getBaseUrlFrom(url) {
   var pathArray = (url).split('/')
